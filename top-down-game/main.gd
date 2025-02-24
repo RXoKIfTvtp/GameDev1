@@ -38,7 +38,9 @@ func toggle_fullscreen_mode() -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	get_tree().get_root().call_deferred("add_child", _h_level_test.instantiate());
+	player.position = Vector2(100, 100);
+	var level = _h_level_test.instantiate();
+	get_tree().get_root().call_deferred("add_child", level);
 	get_tree().get_root().call_deferred("add_child", player);
 
 func _input(event:InputEvent) -> void:
@@ -46,7 +48,7 @@ func _input(event:InputEvent) -> void:
 		event = event as InputEventKey
 		if event.keycode == KEY_ESCAPE:
 			get_tree().quit()
-		if event.keycode == KEY_F11:
+		if event.keycode == KEY_F11 && event.is_released():
 			toggle_fullscreen_mode();
 	elif event is InputEventMouseButton:
 		event = event as InputEventMouseButton
@@ -65,4 +67,6 @@ func _process(delta: float) -> void:
 		speed = SPEED_WALK;
 	player.position += direction * (speed * delta);
 	player.look_at(player.get_global_mouse_position());
+	
+	get_tree().call_group("enemy", "player_position", player.position);
 	pass
