@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://i8lse6yo4xcg"]
+[gd_scene load_steps=3 format=3 uid="uid://i8lse6yo4xcg"]
 
 [ext_resource type="PackedScene" uid="uid://15vvy1pordkn" path="res://object/wall.tscn" id="1_jbxjk"]
+[ext_resource type="PackedScene" uid="uid://dbefo28lfkl0" path="res://object/zombie_1.tscn" id="2_7b1kn"]
 
 [node name="Level_Test" type="Node"]
 
@@ -11,3 +12,13 @@ scale = Vector2(100, 1)
 [node name="Wall2" parent="." instance=ExtResource("1_jbxjk")]
 position = Vector2(1150, 500)
 scale = Vector2(1, 50)
+
+[node name="Wall3" parent="." instance=ExtResource("1_jbxjk")]
+position = Vector2(950, 850)
+scale = Vector2(20, 1)
+
+[node name="Zombie_1_1" parent="." instance=ExtResource("2_7b1kn")]
+position = Vector2(1351, 155)
+
+[node name="Zombie_1_2" parent="." instance=ExtResource("2_7b1kn")]
+position = Vector2(1349, 272)

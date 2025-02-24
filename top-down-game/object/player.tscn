@@ -1,20 +1,28 @@
 [gd_scene load_steps=4 format=3 uid="uid://j5cnnfkcbh3"]
 
 [ext_resource type="Script" path="res://object/player.gd" id="1_p5ly6"]
-[ext_resource type="Texture2D" uid="uid://blpsypre2mx3c" path="res://asset/player_idle_0.png" id="1_xpkqp"]
+[ext_resource type="Texture2D" uid="uid://ca0irp8hdr751" path="res://asset/gun_holder.png" id="2_qhymi"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_6cbqk"]
-radius = 93.0484
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tu0vc"]
+size = Vector2(39, 29)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_p5ly6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(22, -1)
-shape = SubResource("CircleShape2D_6cbqk")
+position = Vector2(8.5, 0.5)
+shape = SubResource("RectangleShape2D_tu0vc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(29.5, -11)
-texture = ExtResource("1_xpkqp")
+position = Vector2(8.5, 0.5)
+texture = ExtResource("2_qhymi")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(8.5, 0.5)
+shape = SubResource("RectangleShape2D_tu0vc")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_entered"]
