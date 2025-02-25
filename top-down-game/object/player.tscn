@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://j5cnnfkcbh3"]
+[gd_scene load_steps=5 format=3 uid="uid://j5cnnfkcbh3"]
 
 [ext_resource type="Script" path="res://object/player.gd" id="1_p5ly6"]
 [ext_resource type="Texture2D" uid="uid://ca0irp8hdr751" path="res://asset/gun_holder.png" id="2_qhymi"]
+[ext_resource type="PackedScene" uid="uid://bpyi0u61t4npb" path="res://object/player_camera_2d.tscn" id="3_hrfic"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tu0vc"]
 size = Vector2(39, 29)
@@ -17,12 +18,12 @@ shape = SubResource("RectangleShape2D_tu0vc")
 position = Vector2(8.5, 0.5)
 texture = ExtResource("2_qhymi")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(8.5, 0.5)
 shape = SubResource("RectangleShape2D_tu0vc")
+
+[node name="PlayerCamera2D" parent="." instance=ExtResource("3_hrfic")]
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_entered"]
