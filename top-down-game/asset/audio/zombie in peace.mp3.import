@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://xy0jw076u1tn"
+path="res://.godot/imported/zombie in peace.mp3-db4397a4d11e98a0ef272b653bd62e6d.mp3str"
+
+[deps]
+
+source_file="res://asset/audio/zombie in peace.mp3"
+dest_files=["res://.godot/imported/zombie in peace.mp3-db4397a4d11e98a0ef272b653bd62e6d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

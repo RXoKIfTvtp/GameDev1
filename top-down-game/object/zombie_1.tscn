@@ -3,10 +3,11 @@
 [ext_resource type="Texture2D" uid="uid://dryd1plrn1icn" path="res://asset/zombie1.png" id="1_2m5hp"]
 [ext_resource type="Script" path="res://object/zombie_1.gd" id="1_xiyd7"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0cgoy"]
-size = Vector2(32, 34)
+[sub_resource type="CircleShape2D" id="CircleShape2D_2ebd5"]
 
 [node name="Zombie_1" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 7
 script = ExtResource("1_xiyd7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -15,4 +16,5 @@ texture = ExtResource("1_2m5hp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(6, 0)
-shape = SubResource("RectangleShape2D_0cgoy")
+scale = Vector2(2, 2)
+shape = SubResource("CircleShape2D_2ebd5")
