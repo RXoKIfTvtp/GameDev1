@@ -1,29 +1,68 @@
-[gd_scene load_steps=5 format=3 uid="uid://j5cnnfkcbh3"]
+[gd_scene load_steps=7 format=3 uid="uid://j5cnnfkcbh3"]
 
 [ext_resource type="Script" path="res://object/player.gd" id="1_p5ly6"]
 [ext_resource type="Texture2D" uid="uid://ca0irp8hdr751" path="res://asset/gun_holder.png" id="2_qhymi"]
 [ext_resource type="PackedScene" uid="uid://bpyi0u61t4npb" path="res://object/player_camera_2d.tscn" id="3_hrfic"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tu0vc"]
-size = Vector2(39, 29)
+[sub_resource type="CircleShape2D" id="CircleShape2D_y82fk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s0ql8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bx5t0"]
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_p5ly6")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(8.5, 0.5)
-shape = SubResource("RectangleShape2D_tu0vc")
+[node name="PlayerCamera2D" parent="." instance=ExtResource("3_hrfic")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(8.5, 0.5)
+position = Vector2(8.5, 0)
 texture = ExtResource("2_qhymi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(2, 2)
+shape = SubResource("CircleShape2D_y82fk")
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(8.5, 0.5)
-shape = SubResource("RectangleShape2D_tu0vc")
+scale = Vector2(2, 2)
+shape = SubResource("CircleShape2D_s0ql8")
 
-[node name="PlayerCamera2D" parent="." instance=ExtResource("3_hrfic")]
+[node name="Interaction" type="Node2D" parent="."]
+
+[node name="InteractionLabel" type="Label" parent="Interaction"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="InteractionArea" type="Area2D" parent="Interaction"]
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interaction/InteractionArea"]
+position = Vector2(30, 0)
+scale = Vector2(1.5, 1.5)
+shape = SubResource("CircleShape2D_bx5t0")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(20, 0)
+rotation = -1.5708
+target_position = Vector2(0, 1000)
+collision_mask = 5
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_entered"]
+[connection signal="area_entered" from="Interaction/InteractionArea" to="." method="_on_interaction_area_entered"]
+[connection signal="area_exited" from="Interaction/InteractionArea" to="." method="_on_interaction_area_exited"]

@@ -4,10 +4,6 @@ extends Node
 var _h_player = preload("res://object/player.tscn");
 # The player instance
 var player = _h_player.instantiate();
-# Player walk movement speed
-var SPEED_WALK = 300;
-# Player run movement speed
-var SPEED_RUN = 500;
 
 # Handle to level
 var _h_level = preload("res://level/level_test.tscn");
@@ -53,37 +49,14 @@ func _ready() -> void:
 	get_tree().get_root().call_deferred("add_child", level);
 	get_tree().get_root().call_deferred("add_child", player);
 
-func _input(event: InputEvent) -> void:
-	# Keyboard events
-	if event is InputEventKey:
-		event = event as InputEventKey
-		# Exit game with Esc
-		if event.keycode == KEY_ESCAPE:
-			get_tree().quit()
-		# Toggle fullscreen with F11
-		elif event.keycode == KEY_F11 && event.is_released():
-			toggle_fullscreen_mode();
-	# Mouse button events
-	elif event is InputEventMouseButton:
-		event = event as InputEventMouseButton
-		# Shoot control
-		if event.button_index == MOUSE_BUTTON_LEFT && event.pressed == true:
-			print("onDown")
-		if event.button_index == MOUSE_BUTTON_LEFT && event.pressed == false:
-			print("onUp")
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	# Player movement
-	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down");
-	var speed = 0;
-	if (Input.is_key_pressed(KEY_SHIFT)):
-		speed = SPEED_RUN;
-	else:
-		speed = SPEED_WALK;
-	player.position += direction * (speed * delta);
-	player.look_at(player.get_global_mouse_position());
-	
+func _process(_delta: float) -> void:
+	# Eric: I kept these controls out of the player script since you'll still be able to use them regardless of if your in a level or not
+	if Input.is_action_just_pressed("fullscreen"):
+		toggle_fullscreen_mode();
+	if Input.is_action_just_pressed("escape"):
+		# For now this closes the game, it will open the pause menu later
+		get_tree().quit();
+		
 	# Pass player position to all enemies for processing
 	get_tree().call_group("enemy", "player_position", player.position);
-	pass
