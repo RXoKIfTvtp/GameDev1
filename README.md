@@ -31,6 +31,7 @@ The input map should include:
 - Layer 2	: Player
 - Layer 3	: Enemies
 - Layer 4	: Interaction (Guns, items, notes)
+- Layer 5 : Lighting
 
 ### Eric's Diary
 
