@@ -27,9 +27,10 @@ visible = false
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 visible = false
 show_behind_parent = true
-light_mask = 16
+light_mask = 0
+visibility_layer = 0
 occluder = SubResource("OccluderPolygon2D_adoms")
-occluder_light_mask = 16
+occluder_light_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 light_mask = 17
