@@ -25,6 +25,7 @@ script = ExtResource("1_p5ly6")
 visible = false
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+visible = false
 show_behind_parent = true
 light_mask = 16
 occluder = SubResource("OccluderPolygon2D_adoms")
@@ -92,7 +93,6 @@ scale = Vector2(1.25, 1)
 
 [node name="AreaLight" parent="." instance=ExtResource("4_agjkw")]
 light_mask = 14
-position = Vector2(20, 0)
 scale = Vector2(4, 4)
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_entered"]
