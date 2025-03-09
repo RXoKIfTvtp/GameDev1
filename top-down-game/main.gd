@@ -6,7 +6,7 @@ var _h_player = preload("res://object/player.tscn");
 var player = _h_player.instantiate();
 
 # Handle to level
-var _h_level = preload("res://level/level_test.tscn");
+var _h_level = preload("res://level/PlayGround.tscn");
 # An instance of a level
 var level = _h_level.instantiate();
 
