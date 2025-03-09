@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfa7fwyvl61la"]
+
+[ext_resource type="Texture2D" uid="uid://b8j3prbsef5de" path="res://asset/beam_2048.png" id="1_8hg11"]
+
+[node name="SpotLight" type="PointLight2D"]
+shadow_enabled = true
+shadow_item_cull_mask = 16
+texture = ExtResource("1_8hg11")
+offset = Vector2(102, 0)
+texture_scale = 0.1

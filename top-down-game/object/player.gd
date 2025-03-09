@@ -12,10 +12,18 @@ var weapons := [];
 var inv := [];
 
 @onready var raycast := $RayCast2D;
+@onready var flashlight := $SpotLight;
 
 @onready var interact_label := $Interaction/InteractionLabel;
 @onready var availible_interactions := [];
 
+func _process(_delta: float) -> void:
+	if (Input.is_action_just_released("flashlight")):
+		if (flashlight.energy == 0):
+			flashlight.energy = 1;
+		else:
+			flashlight.energy = 0;
+	pass
 
 # Using physics_process since it calls in a fixed frequency and not every frame
 func _physics_process(_delta: float) -> void:
