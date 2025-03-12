@@ -6,7 +6,7 @@ Project for COMP 1810 Game Design &amp; Development 1 (Winter 2025)
 - Please name folders according to the project folders in github
 - Currently the main scene loads all instances of levels, npcs, the player and any other instance
 
-### Currently there is no sprite for ground items. To see the pistol, enable collision shave visualization by:
+### Currently there is no sprite for ground items. To see the pistol, enable collision shape visualization by:
 Debug > Visible Collision Shapes
 
 ### How to change the level to Tashinga's leve
