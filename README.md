@@ -32,6 +32,7 @@ The input map should include:
 - Layer 3	: Enemies
 - Layer 4	: Interaction (Guns, items, notes)
 - Layer 5 : Lighting
+- Layer 6 : Reserved by Tashinga
 
 ### Eric's Diary
 
