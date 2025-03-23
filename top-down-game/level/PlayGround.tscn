@@ -3499,6 +3499,7 @@ position = Vector2(1164, -1268)
 
 [node name="Interactable" parent="." node_paths=PackedStringArray("interact_value") instance=ExtResource("9_07825")]
 position = Vector2(1006, -1162)
+interact_label = "Pick-up handgun"
 interact_type = 1
 interact_value = NodePath("Gun")
 
