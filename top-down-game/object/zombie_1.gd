@@ -23,6 +23,7 @@ func player_position(pos: Vector2) -> void:
 func _ready() -> void:
 	# Add npc to enemy group to recieve player_position updates
 	self.add_to_group("enemy");
+	self.health = 100;
 
 func _process(_delta: float) -> void:
 	if (_target != null):
