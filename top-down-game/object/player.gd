@@ -12,6 +12,8 @@ var weapons := [];
 
 var is_dead := false;
 
+@onready var death_overlay := $DeathOverlay;
+
 @onready var look := $Look;
 @onready var gun := $Look/Raycasts/Gun;
 @onready var knife := $Look/Raycasts/Knife;
@@ -52,9 +54,12 @@ func _physics_process(_delta: float) -> void:
 				flashlight.energy = 0;
 
 		if Input.is_action_just_pressed("melee"):
-			take_damage(20); #For testing
 			melee(knife); #Will most likely change this to a polygon
-
+		
+		# Testing player damage
+		if (Input.is_action_just_pressed("test")):
+			take_damage(20); #For testing
+		
 		# TODO: Make a cur weapon variable just so it isn't constantly cheking the array
 		# Weapon controls - Only works when there is a gun in your inventory
 		if weapons.size() > 0:
@@ -148,7 +153,7 @@ func update_interactions():
 func die(): #Prevents the player from doing anything while overlaying the death screen
 	is_dead = true;
 	# Change sprite to dead body
-	# $DeathOverlay.show();
+	death_overlay.show();
 
 func _to_string(): #For debugging
 	return "Cur_health:" + str(cur_health) + ",Weapons:" + str(weapons) + ",Inventory:" + str(inv)

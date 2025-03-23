@@ -1,6 +1,6 @@
 class_name Gun extends Node
 
-@export var gun_sprite : Texture2D;
+
 @export var gun_name : String;
 @export var firetype : String;
 @export var calibur : String;
@@ -11,12 +11,20 @@ class_name Gun extends Node
 @export var ammo_capacity : int;
 @onready var cur_ammo := ammo_capacity;
 
+@export var gun_sprite := "";
+
 @export var gunshot_sound : AudioEffect;
 @export var reload_sound : AudioEffect;
 @export var dry_fire_sound : AudioEffect;
 
+@onready var obj := $Sprite2D;
 
 var rng := RandomNumberGenerator.new();
+
+func _ready() -> void:
+	obj.texture = load(gun_sprite);
+
+
 
 func copy(gun : Gun):
 	gun_name = gun.gun_name;
@@ -33,7 +41,7 @@ func copy(gun : Gun):
 func reload() -> void:
 	# For testing
 	cur_ammo = ammo_capacity;
-	print("Reloaded");
+	print("Hello")
 	
 	# Idea: If pellets > 1 load 1 at a time? Add a reload type? Bullet & mag would allow for variability.
 	
@@ -60,9 +68,10 @@ func shoot(aimed : bool, raycast : RayCast2D) -> void:
 				var collision = raycast.get_collider();
 				var _hit_location = raycast.get_collision_point();
 				if collision is Enemy:
-					collision.take_damage(damage);
-				else:
-					print("");
+					#collision.take_damage(damage);
+					pass
+				if collision is StaticBody2D: # Walls & objects
+					pass
 
 			raycast.rotation_degrees -= rand_aim;
 			
