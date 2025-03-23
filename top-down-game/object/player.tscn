@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://j5cnnfkcbh3"]
+[gd_scene load_steps=11 format=3 uid="uid://j5cnnfkcbh3"]
 
 [ext_resource type="Script" path="res://object/player.gd" id="1_p5ly6"]
+[ext_resource type="PackedScene" uid="uid://d6ke1uor2b1m" path="res://ui/death_overlay.tscn" id="2_ee0qa"]
 [ext_resource type="Texture2D" uid="uid://ca0irp8hdr751" path="res://asset/gun_holder.png" id="2_qhymi"]
 [ext_resource type="PackedScene" uid="uid://bpyi0u61t4npb" path="res://object/player_camera_2d.tscn" id="3_hrfic"]
 [ext_resource type="PackedScene" uid="uid://by2dm04dn80ka" path="res://object/light/area_light.tscn" id="4_agjkw"]
@@ -20,6 +21,10 @@ polygon = PackedVector2Array(17.5, 2, 5, 14, -4, 14, -7, 10, -7, 5, -11, 2, -11,
 collision_layer = 2
 collision_mask = 19
 script = ExtResource("1_p5ly6")
+
+[node name="DeathOverlay" parent="." instance=ExtResource("2_ee0qa")]
+visible = false
+script = null
 
 [node name="PlayerCamera2D" parent="." instance=ExtResource("3_hrfic")]
 

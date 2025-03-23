@@ -65,6 +65,7 @@ func _physics_process(_delta: float) -> void:
 		
 		# Testing player damage
 		if (Input.is_action_just_pressed("test")):
+			print("Applying self damage.");
 			take_damage(20); #For testing
 		
 		# TODO: Make a cur weapon variable just so it isn't constantly cheking the array
