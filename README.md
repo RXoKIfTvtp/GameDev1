@@ -11,7 +11,7 @@ This Project was written for Godot 4.3 stable
 ### Currently there is no sprite for ground items. To see the pistol, enable collision shape visualization by:
 Debug > Visible Collision Shapes
 
-### How to change the level to Tashinga's leve
+### How to change the level
 1. open main.gd
 2. Find the line that starts with: <code>var _h_level = preload("res://level/</code>
 3. Change the line to: <code>var _h_level = preload("res://level/PlayGround.tscn");</code>
