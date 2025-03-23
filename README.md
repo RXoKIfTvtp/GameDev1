@@ -4,9 +4,9 @@ Project for COMP 1810 Game Design &amp; Development 1 (Winter 2025)
 This Project was written for Godot 4.3 stable
 
 ### comments/communications
-- Any and all edits/additions to the code should be coordinated below
-- Please name folders according to the project folders in github
-- Currently the main scene loads all instances of levels, npcs, the player and any other instance
+- Any and all edits/additions to the code should be coordinated below.
+- Please name folders according to the project folders in github.
+- Currently the main scene loads all instances of levels, npcs, the player and any other instance.
 
 ### Currently there is no sprite for ground items. To see the pistol, enable collision shape visualization by:
 Debug > Visible Collision Shapes
