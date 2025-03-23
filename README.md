@@ -27,6 +27,12 @@ The input map should include:
  | sprint                  | Shift |
  | escape                  | Escape |
  | toggle fullscreen       | F11 |
+ | inventory               | Tab or I |
+ | swap_left               | Z |
+ | swap_right              | X |
+ | melee                   | V |
+ | reload                  | R |
+ | test                    | T |
 
 ### Collision Masks:
 - Layer 1	: World (Walls)
@@ -53,19 +59,24 @@ the beginning of the project but I'm fine changing it now. One will allow for th
 other will go off frame rate. Just let me know.
 
 New controls:
-	inventory - Tab or I
-	swap_left - Z
-	swap_right - X
-	melee - V
-	reload - R
+- inventory - Tab or I
+- swap_left - Z
+- swap_right - X
+- melee - V
+- reload - R
 
-I made it so the player was on the "Player" layer.
-Added some UI elements that currently can't work without sceneloader.
-Added a few folders for the lights and menus in the scripts since it was getting crowded.
-Added two globals SaveLoad & SceneLoader. Currently they serve little to no purpose in this version.
-Added a level end trigger that currently kills the game so it is deemed unusable for the time being.
-Added enemy class that zombie extend from to get the "take_damage" and "die" functions, aswell as the "health" parameter.
-Most gun controls are locked behind having one or more guns in your inventory.
-Reworked the gun and interactions system.
+Eric's changes:
+- I made it so the player was on the "Player" layer.
+- Added some UI elements that currently can't work without sceneloader.
+- Added a few folders for the lights and menus in the scripts since it was getting crowded.
+- Added two globals SaveLoad & SceneLoader. Currently they serve little to no purpose in this version.
+- Added a level end trigger that currently kills the game so it is deemed unusable for the time being.
+- Added enemy class that zombie extend from to get the "take_damage" and "die" functions, aswell as the "health" parameter.
+- Most gun controls are locked behind having one or more guns in your inventory.
+- Reworked the gun and interactions system.
+
+
+Mar 23, 2025
+- The gun now takes a sprite path. For some reason you can drag the path so you need to click the asset and copy the path shown just below FileSystem.
 
 
