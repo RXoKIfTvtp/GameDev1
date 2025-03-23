@@ -24,6 +24,7 @@ var is_dead := false;
 
 func _ready() -> void:
 	self.add_to_group("player");
+	flashlight.energy = 0;
 
 func _process(_delta: float) -> void:
 	# Pass player position to all enemies for processing
