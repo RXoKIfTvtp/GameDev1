@@ -7,9 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://b5my05b2pslk8" path="res://object/light/area_light_flicker_off.tscn" id="6_fve2c"]
 [ext_resource type="PackedScene" uid="uid://kq7krqeenq1c" path="res://object/light/area_light_flicker.tscn" id="7_agcid"]
 [ext_resource type="PackedScene" uid="uid://dfa7fwyvl61la" path="res://object/light/spot_light.tscn" id="7_qmy2b"]
-[ext_resource type="PackedScene" uid="uid://dbefo28lfkl0" path="res://object/zombie_1.tscn" id="8_j8i0v"]
-[ext_resource type="PackedScene" uid="uid://b13ugvxqftevb" path="res://object/interactable.tscn" id="9_6p7ff"]
-[ext_resource type="PackedScene" uid="uid://b2pc3eypd8lie" path="res://object/gun.tscn" id="10_r1sn8"]
+[ext_resource type="PackedScene" uid="uid://dbefo28lfkl0" path="res://object/zombie_1.tscn" id="8_rvx36"]
+[ext_resource type="PackedScene" uid="uid://b13ugvxqftevb" path="res://object/interactable.tscn" id="9_07825"]
+[ext_resource type="PackedScene" uid="uid://b2pc3eypd8lie" path="res://object/gun.tscn" id="10_8mdpo"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vkqco"]
 texture = ExtResource("3_5ii2u")
@@ -3494,15 +3494,15 @@ scale = Vector2(2, 1)
 [node name="AreaLightFlickerOff2" parent="Lights" instance=ExtResource("6_fve2c")]
 position = Vector2(-422, -1541)
 
-[node name="Zombie_1" parent="." instance=ExtResource("8_j8i0v")]
+[node name="Zombie_1" parent="." instance=ExtResource("8_rvx36")]
 position = Vector2(1164, -1268)
 
-[node name="Interactable" parent="." node_paths=PackedStringArray("interact_value") instance=ExtResource("9_6p7ff")]
+[node name="Interactable" parent="." node_paths=PackedStringArray("interact_value") instance=ExtResource("9_07825")]
 position = Vector2(1006, -1162)
 interact_type = 1
 interact_value = NodePath("Gun")
 
-[node name="Gun" parent="Interactable" instance=ExtResource("10_r1sn8")]
+[node name="Gun" parent="Interactable" instance=ExtResource("10_8mdpo")]
 gun_name = "Gun"
 damage = 20
 fof = 10
