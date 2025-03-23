@@ -41,7 +41,7 @@ func copy(gun : Gun):
 func reload() -> void:
 	# For testing
 	cur_ammo = ammo_capacity;
-	print("Hello")
+	print("Reloaded weapon.")
 	
 	# Idea: If pellets > 1 load 1 at a time? Add a reload type? Bullet & mag would allow for variability.
 	
@@ -68,9 +68,10 @@ func shoot(aimed : bool, raycast : RayCast2D) -> void:
 				var collision = raycast.get_collider();
 				var _hit_location = raycast.get_collision_point();
 				if collision is Enemy:
-					#collision.take_damage(damage);
+					collision.take_damage(damage);
 					pass
-				if collision is StaticBody2D: # Walls & objects
+				else: # Walls & objects
+					print("Round didn't hit anything interesting.");
 					pass
 
 			raycast.rotation_degrees -= rand_aim;
@@ -78,6 +79,7 @@ func shoot(aimed : bool, raycast : RayCast2D) -> void:
 			cur_ammo -= 1;
 	else:
 		# TODO: Play dry fire noise
+		print("Out of ammo");
 		pass
 		
 func _to_string():
