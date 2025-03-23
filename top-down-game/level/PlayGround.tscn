@@ -3494,16 +3494,20 @@ scale = Vector2(2, 1)
 [node name="AreaLightFlickerOff2" parent="Lights" instance=ExtResource("6_fve2c")]
 position = Vector2(-422, -1541)
 
-[node name="Zombie_1" parent="." instance=ExtResource("8_rvx36")]
-position = Vector2(1164, -1268)
+[node name="Enemies" type="Node" parent="."]
 
-[node name="Interactable" parent="." node_paths=PackedStringArray("interact_value") instance=ExtResource("9_07825")]
-position = Vector2(1006, -1162)
+[node name="Zombie_1" parent="Enemies" instance=ExtResource("8_rvx36")]
+position = Vector2(287, -148)
+
+[node name="Interactables" type="Node" parent="."]
+
+[node name="Interactable" parent="Interactables" node_paths=PackedStringArray("interact_value") instance=ExtResource("9_07825")]
+position = Vector2(129, -42)
 interact_label = "Pick-up handgun"
 interact_type = 1
 interact_value = NodePath("Gun")
 
-[node name="Gun" parent="Interactable" instance=ExtResource("10_8mdpo")]
+[node name="Gun" parent="Interactables/Interactable" instance=ExtResource("10_8mdpo")]
 gun_name = "Gun"
 damage = 20
 fof = 10

@@ -17,7 +17,7 @@ cull_mode = 2
 polygon = PackedVector2Array(17.5, 2, 5, 14, -4, 14, -7, 10, -7, 5, -11, 2, -11, -2, -7, -5, -7, -10, -4, -14, 5, -14, 17.5, -2)
 
 [node name="Player" type="CharacterBody2D"]
-collision_layer = 19
+collision_layer = 2
 collision_mask = 19
 script = ExtResource("1_p5ly6")
 

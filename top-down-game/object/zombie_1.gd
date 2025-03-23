@@ -1,23 +1,45 @@
 class_name Zombie extends Enemy
 
 # Npc movement speed
-const SPEED = 200;
+const SPEED = 100;
 # The position the npc should move to or null for idle
 var _target = null;
 
+@onready var ray_to_player:RayCast2D = $RayToPlayer;
+
 func player_position(pos: Vector2) -> void:
+	var direction_to_player = global_position.direction_to(pos);
+	ray_to_player.rotation = direction_to_player.angle() - self.rotation;
+	ray_to_player.force_raycast_update();
+	var collision_object = ray_to_player.get_collider();
+	if (collision_object != null && collision_object.name.to_lower() == "Player".to_lower()):
+		_target = pos;
+	
+	# This does exactly the same thing as above except the ray is created per method call
+	'''
 	# Use a ray cast to determine if the npc can see the player
 	# var direction = self.position.direction_to(_target).normalized();
 	var space_state = self.get_world_2d().direct_space_state;
-	var query = PhysicsRayQueryParameters2D.create(self.position, pos);
+	var query = PhysicsRayQueryParameters2D.create(self.global_position, pos);
+	# print(self.position, " -> ", pos);
 	query.hit_from_inside = false;
 	query.collide_with_bodies = true;
 	query.collide_with_areas = true;
 	query.exclude = [ self ];
+	query.collision_mask = 5;
+	
 	var result = space_state.intersect_ray(query);
 	# If the ray hits a Player object/scene set the _target var to the players last known position
-	if result && result.collider.name.to_lower() == "Player".to_lower():
-		_target = pos;
+	#if result && result.collider.name.to_lower() == "Player".to_lower():
+	#	_target = pos;
+	if result:
+		var collider:Node2D = result.collider;
+		if (collider.name == "Area2D"):
+			collider = collider.get_parent();
+			if (collider != null && collider.is_in_group("player")):
+				_target = pos;
+				# print("Collided with player!");
+	'''
 	pass
 
 func _ready() -> void:
