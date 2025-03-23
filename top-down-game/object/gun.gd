@@ -1,6 +1,6 @@
 class_name Gun extends Node
 
-@export var gun_sprite : Sprite2D;
+@export var gun_sprite : Texture2D;
 @export var gun_name : String;
 @export var firetype : String;
 @export var calibur : String;
