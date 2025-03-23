@@ -1,12 +1,15 @@
-[gd_scene load_steps=111 format=4 uid="uid://bgbk2u611beea"]
+[gd_scene load_steps=114 format=4 uid="uid://bgbk2u611beea"]
 
 [ext_resource type="AudioStream" uid="uid://cawjx6upfsaqh" path="res://asset/audio/mixkit-chill-choir-glitchy-suspense-687.mp3" id="1_44krl"]
 [ext_resource type="Texture2D" uid="uid://cj2doygm8fmg1" path="res://asset/police_tile-setV3.png" id="3_5ii2u"]
-[ext_resource type="PackedScene" uid="uid://blbvxtpjfmxvq" path="res://object/scene_light.tscn" id="4_6tumd"]
-[ext_resource type="PackedScene" uid="uid://by2dm04dn80ka" path="res://object/area_light.tscn" id="5_2kywy"]
-[ext_resource type="PackedScene" uid="uid://b5my05b2pslk8" path="res://object/area_light_flicker_off.tscn" id="6_fve2c"]
-[ext_resource type="PackedScene" uid="uid://kq7krqeenq1c" path="res://object/area_light_flicker.tscn" id="7_agcid"]
-[ext_resource type="PackedScene" uid="uid://dfa7fwyvl61la" path="res://object/spot_light.tscn" id="7_qmy2b"]
+[ext_resource type="PackedScene" uid="uid://blbvxtpjfmxvq" path="res://object/light/scene_light.tscn" id="4_6tumd"]
+[ext_resource type="PackedScene" uid="uid://by2dm04dn80ka" path="res://object/light/area_light.tscn" id="5_2kywy"]
+[ext_resource type="PackedScene" uid="uid://b5my05b2pslk8" path="res://object/light/area_light_flicker_off.tscn" id="6_fve2c"]
+[ext_resource type="PackedScene" uid="uid://kq7krqeenq1c" path="res://object/light/area_light_flicker.tscn" id="7_agcid"]
+[ext_resource type="PackedScene" uid="uid://dfa7fwyvl61la" path="res://object/light/spot_light.tscn" id="7_qmy2b"]
+[ext_resource type="PackedScene" uid="uid://dbefo28lfkl0" path="res://object/zombie_1.tscn" id="8_j8i0v"]
+[ext_resource type="PackedScene" uid="uid://b13ugvxqftevb" path="res://object/interaction_area.tscn" id="9_fb8gl"]
+[ext_resource type="PackedScene" uid="uid://b2pc3eypd8lie" path="res://object/gun.tscn" id="10_r1sn8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vkqco"]
 texture = ExtResource("3_5ii2u")
@@ -3376,7 +3379,6 @@ tile_set = SubResource("TileSet_j5ch4")
 [node name="Lights" type="Node" parent="."]
 
 [node name="SceneLight" parent="Lights" instance=ExtResource("4_6tumd")]
-visible = false
 position = Vector2(-877, 1120)
 
 [node name="AreaLight" parent="Lights" instance=ExtResource("5_2kywy")]
@@ -3491,3 +3493,13 @@ scale = Vector2(2, 1)
 
 [node name="AreaLightFlickerOff2" parent="Lights" instance=ExtResource("6_fve2c")]
 position = Vector2(-422, -1541)
+
+[node name="Zombie_1" parent="." instance=ExtResource("8_j8i0v")]
+position = Vector2(1164, -1268)
+
+[node name="Interactable" parent="." node_paths=PackedStringArray("interact_value") instance=ExtResource("9_fb8gl")]
+position = Vector2(1006, -1162)
+interact_value = NodePath("Gun")
+
+[node name="Gun" parent="Interactable" instance=ExtResource("10_r1sn8")]
+script = null

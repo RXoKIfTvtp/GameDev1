@@ -1,104 +1,154 @@
-extends CharacterBody2D
-class_name Player
+class_name Player extends CharacterBody2D
 
 const SPEED := 300;
 const MAX_HEALTH := 100;
-
 var cur_health := MAX_HEALTH; # We can set this later between levels with a save file or global script
-var movement := 0.0;
+var bullets_pistol := 999;
+var bullets_rilfe := 999;
+var bullet_buckshot := 999;
 
-# I could make inv a 2d array but I feel it's best top seperate the slots for now.
-var weapons := [];
 var inv := [];
+var weapons := [];
 
-@onready var raycast := $RayCast2D;
-@onready var flashlight := $SpotLight;
+var is_dead := false;
 
-@onready var interact_label := $Interaction/InteractionLabel;
-@onready var availible_interactions := [];
+@onready var look := $Look;
+@onready var gun := $Look/Raycasts/Gun;
+@onready var knife := $Look/Raycasts/Knife;
+@onready var flashlight := $Look/Lights/SpotLight;
 
-func _process(_delta: float) -> void:
-	if (Input.is_action_just_released("flashlight")):
-		if (flashlight.energy == 0):
-			flashlight.energy = 1;
-		else:
-			flashlight.energy = 0;
-	pass
+@onready var interact_label := $InteractionLabel;
+@onready var interactions := [];
+
 
 # Using physics_process since it calls in a fixed frequency and not every frame
 func _physics_process(_delta: float) -> void:
 	# TODO: I will refactor the code later so that not everything is being checked everytime the physics are called cause that is slow.
 	# --- Directional Input ---
-	var direction := Input.get_vector("left","right","up","down");
-	
-	# --- Character Movement ---
-	# Testing a running mechanic, made a variable for this specifically
-	if Input.is_action_pressed("sprint"):
-		movement = SPEED + 200.00;
-	else:
-		movement = SPEED;
-	
-	if direction:
-		velocity = direction * movement;
-	else:
-		velocity.x = move_toward(velocity.x, 0, movement);
-		velocity.y = move_toward(velocity.y, 0, movement);
-	
-	if Input.is_action_just_pressed("interact"):
-		interact();
-	
-	if Input.is_action_just_pressed("shoot") && Input.is_action_pressed("aim") && weapons.size() > 0:
-		weapons[0].shoot(true, raycast);
-	elif Input.is_action_just_pressed("shoot") && weapons.size() > 0:
-		weapons[0].shoot(false, raycast);
-	
+	if !is_dead:
+		var direction := Input.get_vector("left","right","up","down");
+		var movement;
+		
+		# --- Character Movement ---
+		# Testing a running mechanic, made a variable for this specifically
+		if Input.is_action_pressed("sprint"):
+			movement = SPEED + 200.00;
+		else:
+			movement = SPEED;
+		
+		if direction:
+			velocity = direction * movement;
+		else:
+			velocity.x = move_toward(velocity.x, 0, movement);
+			velocity.y = move_toward(velocity.y, 0, movement);
+		
+		if Input.is_action_just_pressed("interact"):
+			interact();
+			
+		if (Input.is_action_just_pressed("flashlight")):
+			if (flashlight.energy == 0):
+				flashlight.energy = 1;
+			else:
+				flashlight.energy = 0;
 
-	look_at(get_global_mouse_position());
+		if Input.is_action_just_pressed("melee"):
+			take_damage(20); #For testing
+			melee(knife); #Will most likely change this to a polygon
+
+		# TODO: Make a cur weapon variable just so it isn't constantly cheking the array
+		# Weapon controls - Only works when there is a gun in your inventory
+		if weapons.size() > 0:
+			if Input.is_action_just_pressed("reload"):
+				weapons[0].reload();
+				print(weapons[0].cur_ammo)
+				
+			if Input.is_action_just_pressed("swap_left"):
+				weapons.append(weapons.pop_front());
+				print(weapons)
+			elif Input.is_action_just_pressed("swap_right"):
+				weapons.insert(0, weapons.pop_back());
+				print(weapons)
+			
+			#Shooting
+			if Input.is_action_just_pressed("shoot") && Input.is_action_pressed("aim"):
+				weapons[0].shoot(true, gun);
+			elif Input.is_action_just_pressed("shoot"):
+				weapons[0].shoot(false, gun);
+		
+		look.look_at(get_global_mouse_position());
+		
+		move_and_slide();
 
 
-	move_and_slide();
+# --- Player Functions ---
+func melee(raycast : RayCast2D):
+	for n in range(0,6):
+		if raycast.is_colliding(): #Will add an array later so it can hit multiple, or return if you want one collision
+			pass
+		raycast.rotation_degrees += 10;
+		raycast.force_raycast_update();
+	raycast.rotation_degrees -= 60;
 
+
+func interact():
+	if interactions:
+		var cur_interaction = interactions[0];
+		var cur_value = cur_interaction.interact_value;
+		
+		match cur_interaction.interact_type:
+			0:
+				if cur_value in inv:
+					pass
+				else:
+					inv.insert(inv.size(), cur_value)
+					cur_interaction.remove();
+				
+			1:
+				if weapons.size() < 3:
+					print("Weapon picked up.")
+					var new_gun = Gun.new();
+					new_gun.copy(cur_value);
+					weapons.insert(weapons.size(), new_gun);
+					cur_interaction.hide();
+				else:
+					#TODO: Change interaction label?
+					print("Too many weapons.")
+				
+				pass
+			2:
+				pass
+			3:
+				pass
+			"_":
+				print("Something went horribly wrong.")
+
+
+func take_damage(damage : int):
+	cur_health -= damage;
+	if cur_health <= 0:
+		die();
 
 
 # Add the interaction area that entered the players interaction sphere to an array
 func _on_interaction_area_entered(area: Area2D) -> void:
-	availible_interactions.insert(0, area);
+	interactions.insert(0, area);
 	update_interactions();
 
 # Remove Said interaction from the array when the areas are no loger colliding
 func _on_interaction_area_exited(area: Area2D) -> void:
-	availible_interactions.erase(area);
+	interactions.erase(area);
 	update_interactions();
 
-
 func update_interactions():
-	if availible_interactions:
-		interact_label.text = availible_interactions[0].interact_label;
+	if interactions:
+		interact_label.text = interactions[0].interact_label;
 	else:
 		interact_label.text = "";
 
-func interact() -> void:
-	if availible_interactions:
-		var cur_interaction = availible_interactions[0];
-		var cur_value = cur_interaction.interact_value;
-		
-		match cur_interaction.interact_type:
-			"test":
-				print(cur_value);
-				
-			"pickup_item":
-				inv.insert(inv.size(), cur_value);
-				cur_interaction.remove();
-				
-			"pickup_gun":
-				print(cur_value)
-				var new_gun = Gun.new();
-				new_gun.copy(cur_value);
-				weapons.insert(weapons.size(), new_gun);
-				cur_interaction.remove();
+func die(): #Prevents the player from doing anything while overlaying the death screen
+	is_dead = true;
+	# Change sprite to dead body
+	# $DeathOverlay.show();
 
-
-# Currently not used for anything
-func _on_entered(area: Area2D) -> void:
-	print("Ouch: " + str(area));
-	pass
+func _to_string(): #For debugging
+	return "Cur_health:" + str(cur_health) + ",Weapons:" + str(weapons) + ",Inventory:" + str(inv)
