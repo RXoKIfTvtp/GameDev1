@@ -1,6 +1,8 @@
 # GameDev1
 Project for COMP 1810 Game Design &amp; Development 1 (Winter 2025)
 
+This Project was written for Godot 4.3 stable
+
 ### comments/communications
 - Any and all edits/additions to the code should be coordinated below
 - Please name folders according to the project folders in github
@@ -32,7 +34,6 @@ The input map should include:
 - Layer 3	: Enemies
 - Layer 4	: Interaction (Guns, items, notes)
 - Layer 5 : Lighting
-- Layer 6 : Reserved by Tashinga
 
 ### Eric's Diary
 
