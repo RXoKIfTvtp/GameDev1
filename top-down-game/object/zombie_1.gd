@@ -1,4 +1,4 @@
-extends CharacterBody2D
+class_name Zombie extends Enemy
 
 # Npc movement speed
 const SPEED = 200;
