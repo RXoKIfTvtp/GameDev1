@@ -3509,3 +3509,4 @@ fof = 10
 fof_ads = 10
 pellets = 20
 ammo_capacity = 5
+gun_sprite = "res://asset/handgun.png"
