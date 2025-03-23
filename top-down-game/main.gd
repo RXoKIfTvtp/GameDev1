@@ -57,6 +57,3 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("escape"):
 		# For now this closes the game, it will open the pause menu later
 		get_tree().quit();
-		
-	# Pass player position to all enemies for processing
-	get_tree().call_group("enemy", "player_position", player.position);

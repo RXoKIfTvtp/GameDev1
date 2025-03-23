@@ -18,3 +18,7 @@ texture = ExtResource("1_2m5hp")
 position = Vector2(6, 0)
 scale = Vector2(2, 2)
 shape = SubResource("CircleShape2D_2ebd5")
+
+[node name="RayToPlayer" type="RayCast2D" parent="."]
+target_position = Vector2(10000, 0)
+collision_mask = 3

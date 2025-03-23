@@ -22,6 +22,12 @@ var is_dead := false;
 @onready var interact_label := $InteractionLabel;
 @onready var interactions := [];
 
+func _ready() -> void:
+	self.add_to_group("player");
+
+func _process(_delta: float) -> void:
+	# Pass player position to all enemies for processing
+	get_tree().call_group("enemy", "player_position", self.global_position);
 
 # Using physics_process since it calls in a fixed frequency and not every frame
 func _physics_process(_delta: float) -> void:
