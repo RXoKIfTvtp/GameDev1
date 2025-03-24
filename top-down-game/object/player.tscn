@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://j5cnnfkcbh3"]
+[gd_scene load_steps=13 format=3 uid="uid://j5cnnfkcbh3"]
 
 [ext_resource type="Script" path="res://object/player.gd" id="1_p5ly6"]
 [ext_resource type="PackedScene" uid="uid://d6ke1uor2b1m" path="res://ui/death_overlay.tscn" id="2_ee0qa"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://by2dm04dn80ka" path="res://object/light/area_light.tscn" id="4_agjkw"]
 [ext_resource type="PackedScene" uid="uid://dfa7fwyvl61la" path="res://object/light/spot_light.tscn" id="4_mkkgc"]
 [ext_resource type="Texture2D" uid="uid://vb5ptrr63c82" path="res://asset/gun_flash.png" id="7_gxdod"]
+[ext_resource type="Texture2D" uid="uid://dcxi01h1y4twn" path="res://asset/bullet_spark.png" id="8_f8nlr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_y82fk"]
 
@@ -90,16 +91,27 @@ light_mask = 14
 scale = Vector2(4, 4)
 
 [node name="GunFlash" type="Node2D" parent="Look"]
+visible = false
+position = Vector2(29, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Look/GunFlash"]
-visible = false
-position = Vector2(36, 0)
+position = Vector2(8, 0)
 texture = ExtResource("7_gxdod")
 
 [node name="AreaLight" parent="Look/GunFlash" instance=ExtResource("4_agjkw")]
-visible = false
-position = Vector2(30, 0)
+position = Vector2(1, 0)
 scale = Vector2(20, 20)
+energy = 20.0
+
+[node name="GunSpark" type="Node2D" parent="Look"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Look/GunSpark"]
+position = Vector2(-8, 0)
+texture = ExtResource("8_f8nlr")
+
+[node name="AreaLight" parent="Look/GunSpark" instance=ExtResource("4_agjkw")]
+position = Vector2(-2, 0)
+scale = Vector2(2, 2)
 energy = 20.0
 
 [node name="InteractionLabel" type="Label" parent="."]

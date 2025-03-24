@@ -23,8 +23,8 @@ var is_dead := false;
 @onready var interactions := [];
 
 @onready var audio_stream_player = $AudioStreamPlayer;
-@onready var gun_flash_sprite = $Look/GunFlash/Sprite2D;
-@onready var gun_flash_light = $Look/GunFlash/AreaLight;
+@onready var gun_flash = $Look/GunFlash;
+@onready var gun_spark = $Look/GunSpark;
 
 func _ready() -> void:
 	self.add_to_group("player");
@@ -32,24 +32,24 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	#Shooting
-	if weapons.size() > 0:
-		if (gun_flash_sprite.visible == false):
-			var fired:bool = false;
+	if (gun_flash.visible == false && gun_spark.visible == false):
+		if weapons.size() > 0:
+			var fired = null;
 			if Input.is_action_just_pressed("shoot") && Input.is_action_pressed("aim"):
 				fired = weapons[0].shoot(true, gun);
 			elif Input.is_action_just_pressed("shoot"):
 				fired = weapons[0].shoot(false, gun);
 			
-			if (fired):
+			if (fired is Vector2):
 				audio_stream_player.stream = weapons[0].fire_sound;
 				audio_stream_player.play(0.15);
-				gun_flash_sprite.visible = true;
-				gun_flash_light.visible = true;
-		else:
-			if (gun_flash_sprite.visible):
-				gun_flash_sprite.visible = false;
-			if (gun_flash_light.visible):
-				gun_flash_light.visible = false;
+				gun_flash.visible = true;
+				gun_spark.global_position = fired;
+				gun_spark.visible = true;
+	else:
+		if (gun_flash.visible || gun_spark.visible):
+			gun_flash.visible = false;
+			gun_spark.visible = false;
 			
 	# Pass player position to all enemies for processing
 	get_tree().call_group("enemy", "player_position", self.global_position);
