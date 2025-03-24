@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://j5cnnfkcbh3"]
+[gd_scene load_steps=12 format=3 uid="uid://j5cnnfkcbh3"]
 
 [ext_resource type="Script" path="res://object/player.gd" id="1_p5ly6"]
 [ext_resource type="PackedScene" uid="uid://d6ke1uor2b1m" path="res://ui/death_overlay.tscn" id="2_ee0qa"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bpyi0u61t4npb" path="res://object/player_camera_2d.tscn" id="3_hrfic"]
 [ext_resource type="PackedScene" uid="uid://by2dm04dn80ka" path="res://object/light/area_light.tscn" id="4_agjkw"]
 [ext_resource type="PackedScene" uid="uid://dfa7fwyvl61la" path="res://object/light/spot_light.tscn" id="4_mkkgc"]
+[ext_resource type="Texture2D" uid="uid://vb5ptrr63c82" path="res://asset/gun_flash.png" id="7_gxdod"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_y82fk"]
 
@@ -88,6 +89,19 @@ scale = Vector2(1.25, 1)
 light_mask = 14
 scale = Vector2(4, 4)
 
+[node name="GunFlash" type="Node2D" parent="Look"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Look/GunFlash"]
+visible = false
+position = Vector2(36, 0)
+texture = ExtResource("7_gxdod")
+
+[node name="AreaLight" parent="Look/GunFlash" instance=ExtResource("4_agjkw")]
+visible = false
+position = Vector2(30, 0)
+scale = Vector2(20, 20)
+energy = 20.0
+
 [node name="InteractionLabel" type="Label" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
@@ -103,6 +117,8 @@ grow_vertical = 2
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_entered"]
 [connection signal="area_entered" from="Look/Interaction/InteractionArea" to="." method="_on_interaction_area_entered"]

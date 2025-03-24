@@ -22,11 +22,35 @@ var is_dead := false;
 @onready var interact_label := $InteractionLabel;
 @onready var interactions := [];
 
+@onready var audio_stream_player = $AudioStreamPlayer;
+@onready var gun_flash_sprite = $Look/GunFlash/Sprite2D;
+@onready var gun_flash_light = $Look/GunFlash/AreaLight;
+
 func _ready() -> void:
 	self.add_to_group("player");
 	flashlight.energy = 0;
 
 func _process(_delta: float) -> void:
+	#Shooting
+	if weapons.size() > 0:
+		if (gun_flash_sprite.visible == false):
+			var fired:bool = false;
+			if Input.is_action_just_pressed("shoot") && Input.is_action_pressed("aim"):
+				fired = weapons[0].shoot(true, gun);
+			elif Input.is_action_just_pressed("shoot"):
+				fired = weapons[0].shoot(false, gun);
+			
+			if (fired):
+				audio_stream_player.stream = weapons[0].fire_sound;
+				audio_stream_player.play(0.15);
+				gun_flash_sprite.visible = true;
+				gun_flash_light.visible = true;
+		else:
+			if (gun_flash_sprite.visible):
+				gun_flash_sprite.visible = false;
+			if (gun_flash_light.visible):
+				gun_flash_light.visible = false;
+			
 	# Pass player position to all enemies for processing
 	get_tree().call_group("enemy", "player_position", self.global_position);
 
@@ -74,6 +98,8 @@ func _physics_process(_delta: float) -> void:
 			if Input.is_action_just_pressed("reload"):
 				weapons[0].reload();
 				print(weapons[0].cur_ammo)
+				audio_stream_player.stream = weapons[0].reload_sound;
+				audio_stream_player.play(0.15);
 				
 			if Input.is_action_just_pressed("swap_left"):
 				weapons.append(weapons.pop_front());
@@ -82,12 +108,6 @@ func _physics_process(_delta: float) -> void:
 				weapons.insert(0, weapons.pop_back());
 				print(weapons)
 			
-			#Shooting
-			if Input.is_action_just_pressed("shoot") && Input.is_action_pressed("aim"):
-				weapons[0].shoot(true, gun);
-			elif Input.is_action_just_pressed("shoot"):
-				weapons[0].shoot(false, gun);
-		
 		look.look_at(get_global_mouse_position());
 		
 		move_and_slide();

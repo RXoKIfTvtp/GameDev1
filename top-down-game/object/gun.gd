@@ -13,9 +13,9 @@ class_name Gun extends Node
 
 @export var gun_sprite := "";
 
-@export var gunshot_sound : AudioEffect;
-@export var reload_sound : AudioEffect;
-@export var dry_fire_sound : AudioEffect;
+@export var fire_sound : AudioStream;
+@export var reload_sound : AudioStream;
+@export var dry_fire_sound : AudioStream;
 
 @onready var obj := $Sprite2D;
 
@@ -23,8 +23,6 @@ var rng := RandomNumberGenerator.new();
 
 func _ready() -> void:
 	obj.texture = load(gun_sprite);
-
-
 
 func copy(gun : Gun):
 	gun_name = gun.gun_name;
@@ -36,7 +34,10 @@ func copy(gun : Gun):
 	pellets = gun.pellets;
 	ammo_capacity = gun.ammo_capacity;
 	cur_ammo = gun.cur_ammo;
-
+	
+	fire_sound = gun.fire_sound;
+	reload_sound = gun.reload_sound;
+	dry_fire_sound = gun.dry_fire_sound;
 
 func reload() -> void:
 	# For testing
@@ -47,9 +48,11 @@ func reload() -> void:
 	
 
 
-func shoot(aimed : bool, raycast : RayCast2D) -> void:
+func shoot(aimed : bool, raycast : RayCast2D) -> bool:
 	if cur_ammo > 0:
-		# TODO: Play gun shooting sound
+		# var sound = AudioStreamPlayer.new();
+		# sound.stream = load("res://asset/audio/pistol-shot-233473.mp3");
+		# sound.play(0.15);
 		for n in range(0,pellets):
 			# Have to create the var before hand or else the compiler throws a hissyfit
 			var rand_aim;
@@ -76,11 +79,10 @@ func shoot(aimed : bool, raycast : RayCast2D) -> void:
 
 			raycast.rotation_degrees -= rand_aim;
 			
-			cur_ammo -= 1;
+		cur_ammo -= 1;
+		return true;
 	else:
-		# TODO: Play dry fire noise
-		print("Out of ammo");
-		pass
+		return false;
 		
 func _to_string():
 	return gun_name + " " + str(damage) + " ";
