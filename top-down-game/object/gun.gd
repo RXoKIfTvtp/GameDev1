@@ -47,8 +47,9 @@ func reload() -> void:
 	# Idea: If pellets > 1 load 1 at a time? Add a reload type? Bullet & mag would allow for variability.
 	
 
-
-func shoot(aimed : bool, raycast : RayCast2D) -> bool:
+# Returns the point of collision or null
+func shoot(aimed : bool, raycast : RayCast2D):
+	var ret = null;
 	if cur_ammo > 0:
 		# var sound = AudioStreamPlayer.new();
 		# sound.stream = load("res://asset/audio/pistol-shot-233473.mp3");
@@ -76,13 +77,14 @@ func shoot(aimed : bool, raycast : RayCast2D) -> bool:
 				else: # Walls & objects
 					print("Round didn't hit anything interesting.");
 					pass
+				ret = raycast.get_collision_point();
 
 			raycast.rotation_degrees -= rand_aim;
 			
 		cur_ammo -= 1;
-		return true;
 	else:
-		return false;
+		pass; # Player is out of ammo
+	return ret;
 		
 func _to_string():
 	return gun_name + " " + str(damage) + " ";
