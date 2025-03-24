@@ -1,4 +1,4 @@
-[gd_scene load_steps=114 format=4 uid="uid://bgbk2u611beea"]
+[gd_scene load_steps=116 format=4 uid="uid://bgbk2u611beea"]
 
 [ext_resource type="AudioStream" uid="uid://cawjx6upfsaqh" path="res://asset/audio/mixkit-chill-choir-glitchy-suspense-687.mp3" id="1_44krl"]
 [ext_resource type="Texture2D" uid="uid://cj2doygm8fmg1" path="res://asset/police_tile-setV3.png" id="3_5ii2u"]
@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://dbefo28lfkl0" path="res://object/zombie_1.tscn" id="8_rvx36"]
 [ext_resource type="PackedScene" uid="uid://b13ugvxqftevb" path="res://object/interactable.tscn" id="9_07825"]
 [ext_resource type="PackedScene" uid="uid://b2pc3eypd8lie" path="res://object/gun.tscn" id="10_8mdpo"]
+[ext_resource type="AudioStream" uid="uid://bu7c7aqqmixk5" path="res://asset/audio/pistol-shot-233473.mp3" id="11_s4u6d"]
+[ext_resource type="AudioStream" uid="uid://bsquywxxvyhwt" path="res://asset/audio/gun-cocking-sound-ver-2-270161.mp3" id="12_flmec"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vkqco"]
 texture = ExtResource("3_5ii2u")
@@ -3515,3 +3517,5 @@ fof_ads = 10
 pellets = 1
 ammo_capacity = 12
 gun_sprite = "res://asset/handgun.png"
+fire_sound = ExtResource("11_s4u6d")
+reload_sound = ExtResource("12_flmec")
