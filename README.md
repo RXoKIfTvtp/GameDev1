@@ -79,4 +79,10 @@ Eric's changes:
 Mar 23, 2025
 - The gun now takes a sprite path. For some reason you can drag the path so you need to click the asset and copy the path shown just below FileSystem.
 
+Mar 27, 2025
+- Added pistol, rifle, & shotgun scenes.
+- Added a new enum to interactable called "Use key" this might lead to me removing "Open locked door"
+- Light on the player was changed forom a node to a node2d.
+- Added a guns folder to the object folder to house the new guns.
+
 
