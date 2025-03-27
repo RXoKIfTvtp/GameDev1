@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1lrc2u14c0dp"]
+
+[ext_resource type="PackedScene" uid="uid://b13ugvxqftevb" path="res://object/interactable.tscn" id="1_irntp"]
+[ext_resource type="PackedScene" uid="uid://b2pc3eypd8lie" path="res://object/gun/gun.tscn" id="2_pfajb"]
+
+[node name="Shotgun" type="Node2D"]
+
+[node name="Interactable" parent="." node_paths=PackedStringArray("interact_value") instance=ExtResource("1_irntp")]
+interact_label = "Shotgun"
+interact_type = 1
+interact_value = NodePath("Gun")
+
+[node name="Gun" parent="Interactable" instance=ExtResource("2_pfajb")]
+gun_name = "Shotgun"
+calibur = "buckshot"
+damage = 15
+fof = 110
+fof_ads = 30
+pellets = 7
+ammo_capacity = 6
+gun_sprite = "res://asset/shotgun.png"

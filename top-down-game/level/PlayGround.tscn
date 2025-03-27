@@ -1,4 +1,4 @@
-[gd_scene load_steps=116 format=4 uid="uid://bgbk2u611beea"]
+[gd_scene load_steps=115 format=4 uid="uid://csdcbh10j82g5"]
 
 [ext_resource type="AudioStream" uid="uid://cawjx6upfsaqh" path="res://asset/audio/mixkit-chill-choir-glitchy-suspense-687.mp3" id="1_44krl"]
 [ext_resource type="Texture2D" uid="uid://cj2doygm8fmg1" path="res://asset/police_tile-setV3.png" id="3_5ii2u"]
@@ -8,10 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://kq7krqeenq1c" path="res://object/light/area_light_flicker.tscn" id="7_agcid"]
 [ext_resource type="PackedScene" uid="uid://dfa7fwyvl61la" path="res://object/light/spot_light.tscn" id="7_qmy2b"]
 [ext_resource type="PackedScene" uid="uid://dbefo28lfkl0" path="res://object/zombie_1.tscn" id="8_rvx36"]
-[ext_resource type="PackedScene" uid="uid://b13ugvxqftevb" path="res://object/interactable.tscn" id="9_07825"]
-[ext_resource type="PackedScene" uid="uid://b2pc3eypd8lie" path="res://object/gun.tscn" id="10_8mdpo"]
-[ext_resource type="AudioStream" uid="uid://bu7c7aqqmixk5" path="res://asset/audio/pistol-shot-233473.mp3" id="11_s4u6d"]
-[ext_resource type="AudioStream" uid="uid://bsquywxxvyhwt" path="res://asset/audio/gun-cocking-sound-ver-2-270161.mp3" id="12_flmec"]
+[ext_resource type="PackedScene" uid="uid://v8hncdwdnsx6" path="res://object/gun/pistol.tscn" id="13_y1038"]
+[ext_resource type="PackedScene" uid="uid://d1lrc2u14c0dp" path="res://object/gun/shotgun.tscn" id="14_r6mjf"]
+[ext_resource type="PackedScene" uid="uid://cd2ra73s12fy1" path="res://object/gun/rifle.tscn" id="15_xokbx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vkqco"]
 texture = ExtResource("3_5ii2u")
@@ -3501,21 +3500,13 @@ position = Vector2(-422, -1541)
 [node name="Zombie_1" parent="Enemies" instance=ExtResource("8_rvx36")]
 position = Vector2(287, -148)
 
-[node name="Interactables" type="Node" parent="."]
+[node name="Items" type="Node2D" parent="."]
+position = Vector2(1083, -1163)
 
-[node name="Interactable" parent="Interactables" node_paths=PackedStringArray("interact_value") instance=ExtResource("9_07825")]
-position = Vector2(129, -42)
-interact_label = "Pick-up handgun"
-interact_type = 1
-interact_value = NodePath("Gun")
+[node name="Handgun" parent="Items" instance=ExtResource("13_y1038")]
 
-[node name="Gun" parent="Interactables/Interactable" instance=ExtResource("10_8mdpo")]
-gun_name = "Gun"
-damage = 20
-fof = 10
-fof_ads = 10
-pellets = 1
-ammo_capacity = 12
-gun_sprite = "res://asset/handgun.png"
-fire_sound = ExtResource("11_s4u6d")
-reload_sound = ExtResource("12_flmec")
+[node name="Shotgun" parent="Items" instance=ExtResource("14_r6mjf")]
+position = Vector2(-79, 39)
+
+[node name="Rifle" parent="Items" instance=ExtResource("15_xokbx")]
+position = Vector2(0, 37)

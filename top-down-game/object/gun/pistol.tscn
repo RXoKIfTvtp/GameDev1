@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://v8hncdwdnsx6"]
+
+[ext_resource type="PackedScene" uid="uid://b13ugvxqftevb" path="res://object/interactable.tscn" id="1_tlb6d"]
+[ext_resource type="PackedScene" uid="uid://b2pc3eypd8lie" path="res://object/gun.tscn" id="2_yp2c7"]
+[ext_resource type="AudioStream" uid="uid://bu7c7aqqmixk5" path="res://asset/audio/pistol-shot-233473.mp3" id="3_6quuy"]
+[ext_resource type="AudioStream" uid="uid://bsquywxxvyhwt" path="res://asset/audio/gun-cocking-sound-ver-2-270161.mp3" id="4_nblpw"]
+
+[node name="Handgun" type="Node2D"]
+
+[node name="Interactable" parent="." node_paths=PackedStringArray("interact_value") instance=ExtResource("1_tlb6d")]
+interact_label = "Pistol"
+interact_type = 1
+interact_value = NodePath("Gun")
+
+[node name="Gun" parent="Interactable" instance=ExtResource("2_yp2c7")]
+gun_name = "Pistol"
+firetype = "single"
+calibur = "pistol"
+damage = 30
+fof = 30
+fof_ads = 10
+pellets = 1
+ammo_capacity = 10
+gun_sprite = "res://asset/handgun.png"
+fire_sound = ExtResource("3_6quuy")
+reload_sound = ExtResource("4_nblpw")

@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://15vvy1pordkn" path="res://object/wall.tscn" id="1_jbxjk"]
 [ext_resource type="PackedScene" uid="uid://dbefo28lfkl0" path="res://object/zombie_1.tscn" id="2_7b1kn"]
-[ext_resource type="PackedScene" uid="uid://b13ugvxqftevb" path="res://object/interaction_area.tscn" id="3_7rlk6"]
-[ext_resource type="PackedScene" uid="uid://b2pc3eypd8lie" path="res://object/gun.tscn" id="4_jmynq"]
+[ext_resource type="PackedScene" uid="uid://b13ugvxqftevb" path="res://object/interactable.tscn" id="3_7rlk6"]
+[ext_resource type="PackedScene" uid="uid://b2pc3eypd8lie" path="res://object/gun/gun.tscn" id="4_jmynq"]
 
 [node name="Level_Test" type="Node"]
 
