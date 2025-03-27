@@ -34,23 +34,26 @@ func _process(_delta: float) -> void:
 	#Shooting
 	if (gun_flash.visible == false && gun_spark.visible == false):
 		if weapons.size() > 0:
-			var fired = null;
-			if Input.is_action_just_pressed("shoot") && Input.is_action_pressed("aim"):
-				fired = weapons[0].shoot(true, gun);
-			elif Input.is_action_just_pressed("shoot"):
-				fired = weapons[0].shoot(false, gun);
-			
-			if (fired is Vector2):
-				audio_stream_player.stream = weapons[0].fire_sound;
-				audio_stream_player.play(0.15);
-				gun_flash.visible = true;
-				gun_spark.global_position = fired;
-				gun_spark.visible = true;
-	else:
-		if (gun_flash.visible || gun_spark.visible):
-			gun_flash.visible = false;
-			gun_spark.visible = false;
-			
+			if Input.is_action_just_pressed("shoot"):
+				var fired = null;
+				if Input.is_action_pressed("aim"):
+					fired = weapons[0].shoot(true, gun);
+				else:
+					fired = weapons[0].shoot(false, gun);
+				
+				if (fired is Vector2):
+					audio_stream_player.stream = weapons[0].fire_sound;
+					audio_stream_player.play(0.15);
+					gun_flash.visible = true;
+					gun_spark.global_position = fired;
+					gun_spark.visible = true;
+				else:
+					audio_stream_player.stream = weapons[0].dry_fire_sound;
+					audio_stream_player.play();
+	elif (gun_flash.visible || gun_spark.visible):
+		gun_flash.visible = false;
+		gun_spark.visible = false;
+	
 	# Pass player position to all enemies for processing
 	get_tree().call_group("enemy", "player_position", self.global_position);
 
