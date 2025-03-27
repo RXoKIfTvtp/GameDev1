@@ -128,29 +128,32 @@ func interact():
 		var cur_interaction = interactions[0];
 		var cur_value = cur_interaction.interact_value;
 		
+		# Look at interactable.gd if you nee to see the interaction types
 		match cur_interaction.interact_type:
-			0:
+			0:# Pick up item
 				if cur_value in inv:
 					pass
 				else:
 					inv.insert(inv.size(), cur_value)
 					cur_interaction.remove();
 				
-			1:
+			1: # Pickup gun
 				if weapons.size() < 3:
 					print("Weapon picked up.")
 					var new_gun = Gun.new();
 					new_gun.copy(cur_value);
 					weapons.insert(weapons.size(), new_gun);
-					cur_interaction.hide();
+					cur_interaction.remove();
 				else:
 					#TODO: Change interaction label?
 					print("Too many weapons.")
 				
 				pass
-			2:
+			2: # Open unlocked door
 				pass
-			3:
+			3: # Open locked door
+				pass
+			4: # Use key (this applies to keycards aswell)
 				pass
 			"_":
 				print("Something went horribly wrong.")

@@ -26,6 +26,8 @@ script = ExtResource("1_p5ly6")
 
 [node name="DeathOverlay" parent="." instance=ExtResource("2_ee0qa")]
 visible = false
+light_mask = 0
+z_index = 10
 script = null
 
 [node name="PlayerCamera2D" parent="." instance=ExtResource("3_hrfic")]
