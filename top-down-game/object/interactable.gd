@@ -4,7 +4,8 @@ enum Interaction_Types {
 	PICKUP_ITEM,
 	PICKUP_WEAPON,
 	OPEN_UNLOCKED_DOOR,
-	OPEN_LOCKED_DOOR
+	OPEN_LOCKED_DOOR,
+	USE_KEY
 }
 
 @export var interact_label := "none";
