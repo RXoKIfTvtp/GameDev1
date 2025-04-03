@@ -81,16 +81,20 @@ func _physics_process(_delta: float) -> void:
 	# --- Directional Input ---
 	if !is_dead:
 		var direction := Input.get_vector("left","right","up","down");
-		var movement;
+		var movement:float = 0.0;
 		
 		# --- Character Movement ---
 		# Testing a running mechanic, made a variable for this specifically
-		if Input.is_action_pressed("sprint"):
+		if Input.is_action_pressed("aim") && weapons.size() > 0:
+			movement = 0.0;
+		elif Input.is_action_pressed("sprint"):
 			movement = SPEED + 200.00;
 		else:
 			movement = SPEED;
 		
-		if direction:
+		if Input.is_action_pressed("aim") && weapons.size() > 0:
+			velocity = Vector2.ZERO;
+		elif direction:
 			velocity = direction * movement;
 		else:
 			velocity.x = move_toward(velocity.x, 0, movement);
