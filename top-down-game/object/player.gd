@@ -24,7 +24,9 @@ var is_dead := false;
 
 @onready var audio_stream_player = $AudioStreamPlayer;
 @onready var gun_flash = $Look/GunFlash;
-@onready var gun_spark = $Look/GunSpark;
+@onready var gun_sparks = $Look/GunSparks;
+
+var _h_gun_spark = preload("res://object/gun_spark.tscn");
 
 func _ready() -> void:
 	self.add_to_group("player");
@@ -32,27 +34,39 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	#Shooting
-	if (gun_flash.visible == false && gun_spark.visible == false):
+	if (gun_flash.visible == false):
 		if weapons.size() > 0:
 			if Input.is_action_just_pressed("shoot"):
-				var fired = null;
+				var result = null;
 				if Input.is_action_pressed("aim"):
-					fired = weapons[0].shoot(true, gun);
+					result = weapons[0].shoot(true, gun);
 				else:
-					fired = weapons[0].shoot(false, gun);
+					result = weapons[0].shoot(false, gun);
 				
-				if (fired is Vector2):
+				if (result != null && result.size() > 0):
 					audio_stream_player.stream = weapons[0].fire_sound;
 					audio_stream_player.play(0.15);
+					
+					while (gun_sparks.get_child_count() < result.size()):
+						gun_sparks.add_child(_h_gun_spark.instantiate());
+					
+					var children = gun_sparks.get_children();
+					for i in gun_sparks.get_child_count():
+						var child:Node2D = children[i];
+						children[i].global_position = result[i].position;
+						children[i].look_at(self.position);
+						child.rotate(deg_to_rad(180));
+						# var angle:float = result[i].position.angle_to(self.global_position);
+						# children[i].rotation = angle;
+						children[i].visible = true;
 					gun_flash.visible = true;
-					gun_spark.global_position = fired;
-					gun_spark.visible = true;
 				else:
 					audio_stream_player.stream = weapons[0].dry_fire_sound;
 					audio_stream_player.play();
-	elif (gun_flash.visible || gun_spark.visible):
+	elif (gun_flash.visible):
+		for i in gun_sparks.get_child_count():
+			gun_sparks.get_child(i).visible = false;
 		gun_flash.visible = false;
-		gun_spark.visible = false;
 	
 	# Pass player position to all enemies for processing
 	get_tree().call_group("enemy", "player_position", self.global_position);

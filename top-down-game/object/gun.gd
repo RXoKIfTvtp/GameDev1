@@ -1,6 +1,5 @@
 class_name Gun extends Node
 
-
 @export var gun_name : String;
 @export var firetype : String;
 @export var calibur : String;
@@ -49,7 +48,8 @@ func reload() -> void:
 
 # Returns the point of collision or null
 func shoot(aimed : bool, raycast : RayCast2D):
-	var ret = null;
+	# var ret = null;
+	var shot_results = [];
 	if cur_ammo > 0:
 		# var sound = AudioStreamPlayer.new();
 		# sound.stream = load("res://asset/audio/pistol-shot-233473.mp3");
@@ -73,18 +73,21 @@ func shoot(aimed : bool, raycast : RayCast2D):
 				var _hit_location = raycast.get_collision_point();
 				if collision is Enemy:
 					collision.take_damage(damage);
+					collision._target = raycast.global_position; # causes npc to walk towards player
+					shot_results.append(ShotResult.new(_hit_location, true));
 					pass
 				else: # Walls & objects
 					print("Round didn't hit anything interesting.");
+					shot_results.append(ShotResult.new(_hit_location, false));
 					pass
-				ret = raycast.get_collision_point();
-
+				# ret = raycast.get_collision_point();
+				
 			raycast.rotation_degrees -= rand_aim;
 			
 		cur_ammo -= 1;
 	else:
 		pass; # Player is out of ammo
-	return ret;
+	return shot_results;
 		
 func _to_string():
 	return gun_name + " " + str(damage) + " ";

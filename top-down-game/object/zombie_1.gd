@@ -1,5 +1,7 @@
 class_name Zombie extends Enemy
 
+@export var field_of_view:float = 150.0;
+
 # Npc movement speed
 const SPEED = 100;
 # The position the npc should move to or null for idle
@@ -9,11 +11,15 @@ var _target = null;
 
 func player_position(pos: Vector2) -> void:
 	var direction_to_player = global_position.direction_to(pos);
-	ray_to_player.rotation = direction_to_player.angle() - self.rotation;
-	ray_to_player.force_raycast_update();
-	var collision_object = ray_to_player.get_collider();
-	if (collision_object != null && collision_object.name.to_lower() == "Player".to_lower()):
-		_target = pos;
+	var angle = direction_to_player.angle() - self.rotation;
+	var degrees = rad_to_deg(angle);
+	if (abs(degrees) < float(field_of_view) / 2.0):
+		print("degrees:", degrees);
+		ray_to_player.rotation = angle;
+		ray_to_player.force_raycast_update();
+		var collision_object = ray_to_player.get_collider();
+		if (collision_object != null && collision_object.name.to_lower() == "Player".to_lower()):
+			_target = pos;
 	
 	# This does exactly the same thing as above except the ray is created per method call
 	'''
