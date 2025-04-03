@@ -14,7 +14,6 @@ func player_position(pos: Vector2) -> void:
 	var angle = direction_to_player.angle() - self.rotation;
 	var degrees = rad_to_deg(angle);
 	if (abs(degrees) < float(field_of_view) / 2.0):
-		print("degrees:", degrees);
 		ray_to_player.rotation = angle;
 		ray_to_player.force_raycast_update();
 		var collision_object = ray_to_player.get_collider();

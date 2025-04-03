@@ -47,15 +47,18 @@ func _process(_delta: float) -> void:
 					audio_stream_player.stream = weapons[0].fire_sound;
 					audio_stream_player.play(0.15);
 					
+					# Ensure that enough pellet sparks exist
 					while (gun_sparks.get_child_count() < result.size()):
 						gun_sparks.add_child(_h_gun_spark.instantiate());
 					
+					# Enable a spark at each pellet hit location
 					var children = gun_sparks.get_children();
-					for i in gun_sparks.get_child_count():
+					for i in result.size():
 						var child:Node2D = children[i];
 						children[i].global_position = result[i].position;
 						children[i].look_at(self.position);
 						child.rotate(deg_to_rad(180));
+						# This commented out stuff doesn't work but might be a better way to do this
 						# var angle:float = result[i].position.angle_to(self.global_position);
 						# children[i].rotation = angle;
 						children[i].visible = true;
@@ -63,6 +66,7 @@ func _process(_delta: float) -> void:
 				else:
 					audio_stream_player.stream = weapons[0].dry_fire_sound;
 					audio_stream_player.play();
+	# After one frame, disable the gun flash and sparks
 	elif (gun_flash.visible):
 		for i in gun_sparks.get_child_count():
 			gun_sparks.get_child(i).visible = false;

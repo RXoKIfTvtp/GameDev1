@@ -62,8 +62,6 @@ func shoot(aimed : bool, raycast : RayCast2D):
 				rand_aim = rng.randf_range(-(fof_ads/2.0), (fof_ads/2.0));
 			else:
 				rand_aim = rng.randf_range(-(fof/2.0), (fof/2.0));
-
-			#print(str(n+1) + ": " + str(rand_aim))
 			
 			raycast.rotation_degrees += rand_aim;
 			raycast.force_raycast_update();
@@ -77,7 +75,7 @@ func shoot(aimed : bool, raycast : RayCast2D):
 					shot_results.append(ShotResult.new(_hit_location, true));
 					pass
 				else: # Walls & objects
-					print("Round didn't hit anything interesting.");
+					# print("Round didn't hit anything interesting.");
 					shot_results.append(ShotResult.new(_hit_location, false));
 					pass
 				# ret = raycast.get_collision_point();
