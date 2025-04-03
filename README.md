@@ -8,7 +8,7 @@ This Project was written for Godot 4.3 stable
 - Please name folders according to the project folders in github.
 - Currently the main scene loads all instances of levels, npcs, the player and any other instance.
 
-### Currently there is no sprite for ground items. To see the pistol, enable collision shape visualization by:
+To enable collision shape visualization:
 Debug > Visible Collision Shapes
 
 ### How to change the level
@@ -28,8 +28,8 @@ The input map should include:
  | escape                  | Escape |
  | toggle fullscreen       | F11 |
  | inventory               | Tab or I |
- | swap_left               | Z |
- | swap_right              | X |
+ | swap_left               | Z or Mouse Wheel Down |
+ | swap_right              | X or Mouse Wheel Up |
  | melee                   | V |
  | reload                  | R |
  | test                    | T |
