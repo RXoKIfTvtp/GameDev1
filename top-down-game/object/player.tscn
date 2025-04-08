@@ -104,7 +104,9 @@ position = Vector2(1, 0)
 scale = Vector2(20, 20)
 energy = 20.0
 
-[node name="GunSparks" type="Node2D" parent="Look"]
+[node name="StrikeSparks" type="Node2D" parent="Look"]
+
+[node name="StrikeBloods" type="Node2D" parent="Look"]
 
 [node name="InteractionLabel" type="Label" parent="."]
 anchors_preset = 8

@@ -49,7 +49,7 @@ func reload() -> void:
 # Returns the point of collision or null
 func shoot(aimed : bool, raycast : RayCast2D):
 	# var ret = null;
-	var shot_results = [];
+	var shot_results:Array[ShotResult] = [];
 	if cur_ammo > 0:
 		# var sound = AudioStreamPlayer.new();
 		# sound.stream = load("res://asset/audio/pistol-shot-233473.mp3");

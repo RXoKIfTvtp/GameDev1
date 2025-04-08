@@ -24,9 +24,11 @@ var is_dead := false;
 
 @onready var audio_stream_player = $AudioStreamPlayer;
 @onready var gun_flash = $Look/GunFlash;
-@onready var gun_sparks = $Look/GunSparks;
+@onready var strike_sparks = $Look/StrikeSparks;
+@onready var strike_bloods = $Look/StrikeBloods;
 
-var _h_gun_spark = preload("res://object/gun_spark.tscn");
+var _h_strike_spark = preload("res://object/strike_spark.tscn");
+var _h_strike_blood = preload("res://object/strike_blood.tscn");
 
 func _ready() -> void:
 	self.add_to_group("player");
@@ -34,42 +36,58 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	#Shooting
+	# Currently guns can only be fired once per frame
 	if (gun_flash.visible == false):
+		# Guns can't be fired if the player doesn't have any :)
 		if weapons.size() > 0:
 			if Input.is_action_just_pressed("shoot"):
-				var result = null;
-				if Input.is_action_pressed("aim"):
-					result = weapons[0].shoot(true, gun);
-				else:
-					result = weapons[0].shoot(false, gun);
+				var result:Array[ShotResult] = weapons[0].shoot(Input.is_action_pressed("aim"), gun);
 				
 				if (result != null && result.size() > 0):
 					audio_stream_player.stream = weapons[0].fire_sound;
 					audio_stream_player.play(0.15);
 					
 					# Ensure that enough pellet sparks exist
-					while (gun_sparks.get_child_count() < result.size()):
-						gun_sparks.add_child(_h_gun_spark.instantiate());
+					while (strike_sparks.get_child_count() < result.size()):
+						var n:Node2D = _h_strike_spark.instantiate();
+						n.visible = false;
+						strike_sparks.add_child(n);
 					
-					# Enable a spark at each pellet hit location
-					var children = gun_sparks.get_children();
+					# Ensure that enough pellet blood strikes exist
+					while (strike_bloods.get_child_count() < result.size()):
+						var n:Node2D = _h_strike_blood.instantiate();
+						n.visible = false;
+						strike_bloods.add_child(n);
+					
+					var blood_index:int = 0;
+					var spark_index:int = 0;
 					for i in result.size():
-						var child:Node2D = children[i];
-						children[i].global_position = result[i].position;
-						children[i].look_at(self.position);
-						child.rotate(deg_to_rad(180));
-						# This commented out stuff doesn't work but might be a better way to do this
-						# var angle:float = result[i].position.angle_to(self.global_position);
-						# children[i].rotation = angle;
-						children[i].visible = true;
+						# Enable a spark or blood strike at each pellet hit location
+						var child;
+						if (result[i].hit_npc == false):
+							child = strike_sparks.get_child(spark_index);
+							spark_index += 1;
+						else:
+							child = strike_bloods.get_child(blood_index);
+							blood_index += 1;
+						# Rotate the strike so it looks like it came from the player
+						child.global_position = result[i].location;
+						child.look_at(self.position);
+						# Show the strike
+						child.visible = true;
+					# Show the gun flash
 					gun_flash.visible = true;
 				else:
 					audio_stream_player.stream = weapons[0].dry_fire_sound;
 					audio_stream_player.play();
 	# After one frame, disable the gun flash and sparks
 	elif (gun_flash.visible):
-		for i in gun_sparks.get_child_count():
-			gun_sparks.get_child(i).visible = false;
+		# _process renders before each frame
+		# if the gun flash is visible it means it must have already rendered once
+		for i in strike_sparks.get_child_count():
+			strike_sparks.get_child(i).visible = false;
+		for i in strike_bloods.get_child_count():
+			strike_bloods.get_child(i).visible = false;
 		gun_flash.visible = false;
 	
 	# Pass player position to all enemies for processing
@@ -84,7 +102,6 @@ func _physics_process(_delta: float) -> void:
 		var movement:float = 0.0;
 		
 		# --- Character Movement ---
-		# Testing a running mechanic, made a variable for this specifically
 		if Input.is_action_pressed("aim") && weapons.size() > 0:
 			movement = 0.0;
 		elif Input.is_action_pressed("sprint"):
@@ -137,7 +154,6 @@ func _physics_process(_delta: float) -> void:
 		
 		move_and_slide();
 
-
 # --- Player Functions ---
 func melee(raycast : RayCast2D):
 	for n in range(0,6):
@@ -146,7 +162,6 @@ func melee(raycast : RayCast2D):
 		raycast.rotation_degrees += 10;
 		raycast.force_raycast_update();
 	raycast.rotation_degrees -= 60;
-
 
 func interact():
 	if interactions:
@@ -183,12 +198,10 @@ func interact():
 			"_":
 				print("Something went horribly wrong.")
 
-
 func take_damage(damage : int):
 	cur_health -= damage;
 	if cur_health <= 0:
 		die();
-
 
 # Add the interaction area that entered the players interaction sphere to an array
 func _on_interaction_area_entered(area: Area2D) -> void:
