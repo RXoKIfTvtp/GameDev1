@@ -11,7 +11,7 @@ This Project was written for Godot 4.3 stable
 To enable collision shape visualization:
 Debug > Visible Collision Shapes
 
-### How to change the level
+How to change the level:
 1. open main.gd
 2. Find the line that starts with: <code>var _h_level = preload("res://level/</code>
 3. Change the line to: <code>var _h_level = preload("res://level/PlayGround.tscn");</code>
@@ -21,7 +21,8 @@ The input map should include:
  | Action name | Mapped key(s) |
  | ----------- | ------------- |
  | up, down, left, & right | w, a, s, & d or ^, <, v, & > |
- | shoot & aim             | Mouse 1 & Mouse 2 |
+ | aim                     | Mouse 2 (Right Mouse) |
+ | shoot                   | Mouse 1 (Left Mouse) |
  | interact                | E |
  | flashlight              | F |
  | sprint                  | Shift |
