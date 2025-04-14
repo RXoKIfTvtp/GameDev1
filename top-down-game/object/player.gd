@@ -30,11 +30,23 @@ var is_dead := false;
 var _h_strike_spark = preload("res://object/strike_spark.tscn");
 var _h_strike_blood = preload("res://object/strike_blood.tscn");
 
+# Battery amount is measured in milliseconds
+var flashlight_battery_amount = 60000;
+
 func _ready() -> void:
 	self.add_to_group("player");
 	flashlight.energy = 0;
 
 func _process(_delta: float) -> void:
+	if (flashlight.energy != 0):
+		# If flashlight is on and has battery left
+		if (flashlight_battery_amount > 0):
+			flashlight_battery_amount -= int(_delta * 1000);
+		# If flashlight is on but ran out of battery, turn off the flashlight
+		else:
+			flashlight.energy = 0;
+			flashlight_battery_amount = 0;
+	
 	#Shooting
 	# Currently guns can only be fired once per frame
 	if (gun_flash.visible == false):
@@ -120,7 +132,7 @@ func _physics_process(_delta: float) -> void:
 		if Input.is_action_just_pressed("interact"):
 			interact();
 			
-		if (Input.is_action_just_pressed("flashlight")):
+		if (Input.is_action_just_pressed("flashlight") && flashlight_battery_amount > 0):
 			if (flashlight.energy == 0):
 				flashlight.energy = 1;
 			else:
