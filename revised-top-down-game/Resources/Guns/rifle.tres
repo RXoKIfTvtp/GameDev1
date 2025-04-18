@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Gun" load_steps=6 format=3 uid="uid://sc5f03gywkhv"]
+
+[ext_resource type="AudioStream" uid="uid://dcpa3hfpcqio5" path="res://Assets/Audio/empty-gun-shot-6209.mp3" id="1_7qbhj"]
+[ext_resource type="AudioStream" uid="uid://rso6s2edu2qb" path="res://Assets/Audio/desert-eagle-90136.mp3" id="2_nbp1d"]
+[ext_resource type="Texture2D" uid="uid://cqfg62fo6vorg" path="res://Assets/Sprites/Weapons/crossbow.png" id="3_om4d8"]
+[ext_resource type="Script" path="res://Scripts/Resources/gun.gd" id="4_n2kvs"]
+[ext_resource type="AudioStream" uid="uid://bsquywxxvyhwt" path="res://Assets/Audio/gun-cocking-sound-ver-2-270161.mp3" id="4_wt31q"]
+
+[resource]
+script = ExtResource("4_n2kvs")
+gun_name = "Rifle"
+calibur = "rifle"
+damage = 55
+pellets = 1
+field_of_fire = 60
+field_of_fire_ads = 5
+max_ammo = 5
+cur_ammo = 5
+icon = ExtResource("3_om4d8")
+fire_sound = ExtResource("2_nbp1d")
+reload_sound = ExtResource("4_wt31q")
+dry_fire_sound = ExtResource("1_7qbhj")

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://isy1vkgfr8g2"]
+
+[ext_resource type="Texture2D" uid="uid://vb5ptrr63c82" path="res://Assets/Sprites/Effects/gun_flash.png" id="1_5udrd"]
+[ext_resource type="PackedScene" uid="uid://by2dm04dn80ka" path="res://Objects/Lighting/area_light.tscn" id="2_7kk6t"]
+
+[node name="GunSpark" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-8, 0)
+texture = ExtResource("1_5udrd")
+
+[node name="AreaLight" parent="." instance=ExtResource("2_7kk6t")]
+position = Vector2(-2, 0)
+scale = Vector2(2, 2)
+energy = 20.0

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b28ue4t1vs5yx"]
+
+[ext_resource type="PackedScene" uid="uid://dcq1vcpqwoqdy" path="res://Objects/interactable.tscn" id="1_22mn6"]
+[ext_resource type="Resource" uid="uid://cqg8nwrs482yg" path="res://Resources/Guns/shotgun.tres" id="2_hfew3"]
+
+[node name="Shotgun" type="Node2D"]
+
+[node name="Interactable" parent="." instance=ExtResource("1_22mn6")]
+interact_label = "Shotgun"
+interact_type = 1
+interact_resource = ExtResource("2_hfew3")

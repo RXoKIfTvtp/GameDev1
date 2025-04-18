@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://co8bu8i6jobe7"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/item.gd" id="1_37aiy"]
+[ext_resource type="Texture2D" uid="uid://gyntfowkj1st" path="res://Assets/Sprites/Bullets/shotgunShell.png" id="1_cipeu"]
+
+[resource]
+script = ExtResource("1_37aiy")
+name = "buckshot"
+type = "bullet"
+icon = ExtResource("1_cipeu")
+amount = 5

@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=3 uid="uid://10lq601trqnb"]
+
+[ext_resource type="PackedScene" uid="uid://d14i2f6iq1veb" path="res://Objects/player.tscn" id="1_mjqi1"]
+[ext_resource type="Texture2D" uid="uid://k7b8qx0i1fj3" path="res://icon.svg" id="2_v4m08"]
+[ext_resource type="PackedScene" uid="uid://06je3rwk6cpn" path="res://Objects/Guns/pistol.tscn" id="3_db7pc"]
+[ext_resource type="PackedScene" uid="uid://cf33joaemi76x" path="res://Objects/Guns/rifle.tscn" id="4_o6j7y"]
+[ext_resource type="PackedScene" uid="uid://b28ue4t1vs5yx" path="res://Objects/Guns/shotgun.tscn" id="5_n4abt"]
+[ext_resource type="PackedScene" uid="uid://dbefo28lfkl0" path="res://Objects/Enemies/zombie_1.tscn" id="6_t1jeg"]
+
+[node name="DevLevel" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_mjqi1")]
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(286, -97)
+texture = ExtResource("2_v4m08")
+
+[node name="Pistol" parent="." instance=ExtResource("3_db7pc")]
+position = Vector2(143, 29)
+
+[node name="Rifle" parent="." instance=ExtResource("4_o6j7y")]
+position = Vector2(113, -97)
+
+[node name="Shotgun" parent="." instance=ExtResource("5_n4abt")]
+position = Vector2(133, -35)
+
+[node name="Zombie_1" parent="." instance=ExtResource("6_t1jeg")]
+position = Vector2(-124, -127)

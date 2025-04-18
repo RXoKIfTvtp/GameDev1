@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://cd2ra73s12fy1"]
+
+[ext_resource type="PackedScene" uid="uid://b13ugvxqftevb" path="res://object/interactable.tscn" id="1_1im7a"]
+[ext_resource type="PackedScene" uid="uid://b2pc3eypd8lie" path="res://object/gun.tscn" id="2_sfquk"]
+[ext_resource type="AudioStream" uid="uid://rso6s2edu2qb" path="res://asset/audio/desert-eagle-90136.mp3" id="3_b1dmf"]
+[ext_resource type="AudioStream" uid="uid://bsquywxxvyhwt" path="res://asset/audio/gun-cocking-sound-ver-2-270161.mp3" id="4_6uw80"]
+[ext_resource type="AudioStream" uid="uid://dcpa3hfpcqio5" path="res://asset/audio/empty-gun-shot-6209.mp3" id="5_vj0q6"]
+
+[node name="Rifle" type="Node2D"]
+
+[node name="Interactable" parent="." node_paths=PackedStringArray("interact_value") instance=ExtResource("1_1im7a")]
+interact_label = "Rifle"
+interact_type = 1
+interact_value = NodePath("Gun")
+
+[node name="Gun" parent="Interactable" instance=ExtResource("2_sfquk")]
+gun_name = "Rifle"
+firetype = "single"
+calibur = "rifle"
+damage = 45
+fof = 40
+fof_ads = 10
+pellets = 1
+ammo_capacity = 5
+gun_sprite = "res://asset/crossbow.png"
+fire_sound = ExtResource("3_b1dmf")
+reload_sound = ExtResource("4_6uw80")
+dry_fire_sound = ExtResource("5_vj0q6")

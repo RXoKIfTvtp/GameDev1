@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3scay3edih4i"]
+
+[ext_resource type="Texture2D" uid="uid://dosvqtbf7u3jq" path="res://Assets/Sprites/Effects/blood_spark.png" id="1_74jea"]
+
+[node name="BloodSpark" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(8, 0)
+rotation = 3.14159
+texture = ExtResource("1_74jea")

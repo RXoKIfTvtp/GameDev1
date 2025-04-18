@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://blbvxtpjfmxvq"]
+
+[node name="SceneLight" type="DirectionalLight2D"]
+visibility_layer = 16
+blend_mode = 1
+max_distance = 1e+09

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfeycdb4hgf81"]
+
+[ext_resource type="PackedScene" uid="uid://dcq1vcpqwoqdy" path="res://Objects/interactable.tscn" id="1_so3mu"]
+[ext_resource type="Resource" uid="uid://yhf72hulptqd" path="res://Resources/Items/Consumables/battery.tres" id="2_v6uuj"]
+
+[node name="Battery" type="Node2D"]
+
+[node name="Interactable" parent="." instance=ExtResource("1_so3mu")]
+interact_label = "Battery"
+interact_resource = ExtResource("2_v6uuj")

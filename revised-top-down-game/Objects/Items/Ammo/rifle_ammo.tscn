@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://ubp70sa21n6r"]
+
+[ext_resource type="PackedScene" uid="uid://dcq1vcpqwoqdy" path="res://Objects/interactable.tscn" id="1_vcqpp"]
+[ext_resource type="Resource" uid="uid://mx660nk4wu30" path="res://Resources/Items/Bullets/bullet_rifle.tres" id="2_eoxil"]
+
+[node name="RifleAmmo" type="Node2D"]
+
+[node name="Interactable" parent="." instance=ExtResource("1_vcqpp")]
+interact_label = "Rifle Bullets"
+interact_resource = ExtResource("2_eoxil")

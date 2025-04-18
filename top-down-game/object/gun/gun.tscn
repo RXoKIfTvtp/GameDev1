@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://b2pc3eypd8lie"]
+
+[ext_resource type="Script" path="res://object/gun.gd" id="1_x8rop"]
+[ext_resource type="AudioStream" uid="uid://bu7c7aqqmixk5" path="res://asset/audio/pistol-shot-233473.mp3" id="2_12aeg"]
+[ext_resource type="AudioStream" uid="uid://bsquywxxvyhwt" path="res://asset/audio/gun-cocking-sound-ver-2-270161.mp3" id="3_1niky"]
+
+[node name="Gun" type="Node2D"]
+script = ExtResource("1_x8rop")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="FireSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_12aeg")
+
+[node name="ReloadSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_1niky")
+
+[node name="EmptySound" type="AudioStreamPlayer" parent="."]
