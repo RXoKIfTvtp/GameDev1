@@ -1,0 +1,98 @@
+[gd_scene load_steps=8 format=3 uid="uid://d14i2f6iq1veb"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_swjbe"]
+[ext_resource type="Texture2D" uid="uid://bcwhacm2wxp3b" path="res://Assets/Sprites/Player/main_cop.png" id="2_cerep"]
+[ext_resource type="PackedScene" uid="uid://dfa7fwyvl61la" path="res://Objects/Lighting/spot_light.tscn" id="4_xhace"]
+[ext_resource type="PackedScene" uid="uid://by2dm04dn80ka" path="res://Objects/Lighting/area_light.tscn" id="5_7i4u0"]
+[ext_resource type="Texture2D" uid="uid://vb5ptrr63c82" path="res://Assets/Sprites/Effects/gun_flash.png" id="6_x5nos"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s0xox"]
+radius = 15.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c04m4"]
+radius = 15.0
+
+[node name="Player" type="CharacterBody2D"]
+z_index = 9
+collision_layer = 2
+collision_mask = 19
+script = ExtResource("1_swjbe")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_s0xox")
+
+[node name="Look" type="Node2D" parent="."]
+
+[node name="Raycasts" type="Node2D" parent="Look"]
+
+[node name="Gun" type="RayCast2D" parent="Look/Raycasts"]
+rotation = -1.5708
+target_position = Vector2(0, 500)
+collision_mask = 5
+
+[node name="Melee" type="RayCast2D" parent="Look/Raycasts"]
+rotation = -2.0944
+collision_mask = 5
+
+[node name="Interaction" type="Node2D" parent="Look"]
+
+[node name="InteractionArea" type="Area2D" parent="Look/Interaction"]
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Look/Interaction/InteractionArea"]
+position = Vector2(20, 0)
+shape = SubResource("CircleShape2D_c04m4")
+
+[node name="Sprite2D" type="Sprite2D" parent="Look"]
+texture = ExtResource("2_cerep")
+
+[node name="Lights" type="Node2D" parent="Look"]
+
+[node name="AreaLight" parent="Look/Lights" instance=ExtResource("5_7i4u0")]
+
+[node name="Flashlight" parent="Look/Lights" instance=ExtResource("4_xhace")]
+energy = 0.0
+offset = Vector2(110, 0)
+
+[node name="GunFlash" type="Node2D" parent="Look"]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Look/GunFlash"]
+position = Vector2(8, 0)
+texture = ExtResource("6_x5nos")
+
+[node name="AreaLight" parent="Look/GunFlash" instance=ExtResource("5_7i4u0")]
+position = Vector2(1, 0)
+scale = Vector2(20, 20)
+energy = 20.0
+
+[node name="StrikeBloods" type="Node2D" parent="Look"]
+
+[node name="StrikeSparks" type="Node2D" parent="Look"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+volume_db = -20.0
+bus = &"SFX"
+
+[node name="InteractionLabel" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = 12.0
+offset_right = 50.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[connection signal="area_entered" from="Look/Interaction/InteractionArea" to="." method="_on_interaction_area_entered"]
+[connection signal="area_exited" from="Look/Interaction/InteractionArea" to="." method="_on_interaction_area_exited"]

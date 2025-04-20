@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://bi02tk7d3cauv"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/zombie_corpse.gd" id="1_24y3x"]
+[ext_resource type="AudioStream" uid="uid://bdmts8g28b0pe" path="res://Assets/Audio/monster-death-grunt-131480.mp3" id="1_bn5rt"]
+[ext_resource type="Texture2D" uid="uid://0bwa7yws2cao" path="res://Assets/Sprites/corpse.png" id="2_us8ny"]
+
+[node name="ZombieCorpse" type="Node2D"]
+z_index = 1
+script = ExtResource("1_24y3x")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_bn5rt")
+volume_db = -10.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_us8ny")

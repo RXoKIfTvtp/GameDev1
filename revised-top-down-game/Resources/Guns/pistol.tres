@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Gun" load_steps=6 format=3 uid="uid://16ry4pgf0xd"]
+
+[ext_resource type="AudioStream" uid="uid://dcpa3hfpcqio5" path="res://Assets/Audio/empty-gun-shot-6209.mp3" id="1_gysmk"]
+[ext_resource type="AudioStream" uid="uid://bu7c7aqqmixk5" path="res://Assets/Audio/pistol-shot-233473.mp3" id="1_oey6d"]
+[ext_resource type="Texture2D" uid="uid://cupm0h3qp4f8i" path="res://Assets/Sprites/Weapons/handgun.png" id="2_m84ft"]
+[ext_resource type="AudioStream" uid="uid://bsquywxxvyhwt" path="res://Assets/Audio/gun-cocking-sound-ver-2-270161.mp3" id="3_emcod"]
+[ext_resource type="Script" path="res://Scripts/Resources/gun.gd" id="4_stvp2"]
+
+[resource]
+script = ExtResource("4_stvp2")
+gun_name = "Pistol"
+calibur = "pistol"
+damage = 20
+pellets = 1
+field_of_fire = 30
+field_of_fire_ads = 10
+max_ammo = 10
+cur_ammo = 10
+icon = ExtResource("2_m84ft")
+fire_sound = ExtResource("1_oey6d")
+reload_sound = ExtResource("3_emcod")
+dry_fire_sound = ExtResource("1_gysmk")

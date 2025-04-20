@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://ela0p3q5u7mb"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/item.gd" id="1_kfwg2"]
+
+[resource]
+script = ExtResource("1_kfwg2")
+name = "Scrap"
+type = "Crafting"
+amount = 0

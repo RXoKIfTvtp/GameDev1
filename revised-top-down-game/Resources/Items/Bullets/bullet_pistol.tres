@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://di4sub5mv5md0"]
+
+[ext_resource type="Texture2D" uid="uid://cxdcew87s6wmw" path="res://Assets/Sprites/Bullets/bullet.png" id="1_tldpr"]
+[ext_resource type="Script" path="res://Scripts/Resources/item.gd" id="2_wpkcg"]
+
+[resource]
+script = ExtResource("2_wpkcg")
+name = "pistol"
+type = "bullet"
+icon = ExtResource("1_tldpr")
+amount = 20

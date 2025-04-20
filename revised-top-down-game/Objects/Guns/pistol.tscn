@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://06je3rwk6cpn"]
+
+[ext_resource type="PackedScene" uid="uid://dcq1vcpqwoqdy" path="res://Objects/interactable.tscn" id="1_2oy6k"]
+[ext_resource type="Resource" uid="uid://16ry4pgf0xd" path="res://Resources/Guns/pistol.tres" id="2_aaclp"]
+
+[node name="Pistol" type="Node2D"]
+
+[node name="Interactable" parent="." instance=ExtResource("1_2oy6k")]
+interact_label = "Pistol"
+interact_type = 1
+interact_resource = ExtResource("2_aaclp")

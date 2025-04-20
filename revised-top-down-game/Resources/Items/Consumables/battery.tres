@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://yhf72hulptqd"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/item.gd" id="1_5tru1"]
+[ext_resource type="Texture2D" uid="uid://du67hdk5tcoo2" path="res://Assets/Sprites/Items/battery.png" id="1_7aonc"]
+
+[resource]
+script = ExtResource("1_5tru1")
+name = "battery"
+type = "consumable"
+icon = ExtResource("1_7aonc")
+amount = 1

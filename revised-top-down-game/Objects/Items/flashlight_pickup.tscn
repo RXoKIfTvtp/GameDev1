@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0ljyjhtpa5e4"]
+
+[ext_resource type="PackedScene" uid="uid://dcq1vcpqwoqdy" path="res://Objects/interactable.tscn" id="1_yc8r5"]
+[ext_resource type="Resource" uid="uid://yhf72hulptqd" path="res://Resources/Items/Consumables/battery.tres" id="2_gkvp6"]
+
+[node name="Flashlight Pickup" type="Node2D"]
+z_index = -1
+
+[node name="Interactable" parent="." instance=ExtResource("1_yc8r5")]
+interact_label = "Flashlight"
+interact_resource = ExtResource("2_gkvp6")

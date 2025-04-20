@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Gun" load_steps=4 format=3 uid="uid://cqg8nwrs482yg"]
+
+[ext_resource type="Texture2D" uid="uid://d2hj1t7i4lbu3" path="res://Assets/Sprites/Weapons/shotgun.png" id="1_ca1ph"]
+[ext_resource type="AudioStream" uid="uid://dcpa3hfpcqio5" path="res://Assets/Audio/empty-gun-shot-6209.mp3" id="1_rfjqa"]
+[ext_resource type="Script" path="res://Scripts/Resources/gun.gd" id="2_2y5p1"]
+
+[resource]
+script = ExtResource("2_2y5p1")
+gun_name = "Shotgun"
+calibur = "buckshot"
+damage = 15
+pellets = 7
+field_of_fire = 90
+field_of_fire_ads = 30
+max_ammo = 4
+cur_ammo = 4
+icon = ExtResource("1_ca1ph")
+dry_fire_sound = ExtResource("1_rfjqa")
