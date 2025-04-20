@@ -34,7 +34,6 @@ var interactions := [];
 # --- Onready variables ---
 @onready var player_sprite := $Look/Sprite2D;
 
-@onready var death_overlay := $DeathOverlay;
 @onready var look := $Look;
 @onready var flashlight := $Look/Lights/Flashlight;
 @onready var knife := $Look/Raycasts/Melee;
@@ -112,66 +111,65 @@ func _process(_delta: float) -> void:
 		var weapon = weapons[0];
 		if Input.is_action_just_pressed("shoot"):
 			shoot(weapon);
-		#if (gun_flash.visible == false):
-			#if Input.is_action_just_pressed("shoot"):
-				#var result:Array[ShotResult] = weapon.shoot(Input.is_action_pressed("aim"), gun);
-				#
-				#if (result != null && result.size() > 0):
-					#audio_stream_player.stream = weapon.fire_sound;
-					#audio_stream_player.play(0.15);
-					#
+		if (gun_flash.visible == false):
+			if Input.is_action_just_pressed("shoot"):
+				var result:Array[ShotResult] = weapon.shoot(Input.is_action_pressed("aim"), gun);
+				
+				if (result != null && result.size() > 0):
+					audio_stream_player.stream = weapon.fire_sound;
+					audio_stream_player.play(0.15);
+					
 					## Ensure that enough pellet sparks exist
-					#while (strike_sparks.get_child_count() < result.size()):
-						#var n:Node2D = _h_strike_spark.instantiate();
-						#n.visible = false;
-						#strike_sparks.add_child(n);
-					#
+					while (strike_sparks.get_child_count() < result.size()):
+						var n:Node2D = _h_strike_spark.instantiate();
+						n.visible = false;
+						strike_sparks.add_child(n);
+					
 					## Ensure that enough pellet blood strikes exist
-					#while (strike_bloods.get_child_count() < result.size()):
-						#var n:Node2D = _h_strike_blood.instantiate();
-						#n.visible = false;
-						#strike_bloods.add_child(n);
-					#
-					#var blood_index:int = 0;
-					#var spark_index:int = 0;
-					#for i in result.size():
+					while (strike_bloods.get_child_count() < result.size()):
+						var n:Node2D = _h_strike_blood.instantiate();
+						n.visible = false;
+						strike_bloods.add_child(n);
+					
+					var blood_index:int = 0;
+					var spark_index:int = 0;
+					for i in result.size():
 						## Enable a spark or blood strike at each pellet hit location
-						#var child;
-						#if (result[i].hit_npc == false):
-							#child = strike_sparks.get_child(spark_index);
-							#spark_index += 1;
-						#else:
-							#child = strike_bloods.get_child(blood_index);
-							#blood_index += 1;
+						var child;
+						if (result[i].hit_npc == false):
+							child = strike_sparks.get_child(spark_index);
+							spark_index += 1;
+						else:
+							child = strike_bloods.get_child(blood_index);
+							blood_index += 1;
 						## Rotate the strike so it looks like it came from the player
-						#child.global_position = result[i].location;
-						#child.look_at(self.position);
+						child.global_position = result[i].location;
+						child.look_at(self.position);
 						## Show the strike
-						#child.visible = true;
+						child.visible = true;
 					## Show the gun flash
-					#gun_flash.visible = true;
-				#else:
-					#audio_stream_player.stream = weapon.dry_fire_sound;
-					#audio_stream_player.play();
+					gun_flash.visible = true;
+				else:
+					audio_stream_player.stream = weapon.dry_fire_sound;
+					audio_stream_player.play();
 		## After one frame, disable the gun flash and sparks
-		#elif (gun_flash.visible):
+		elif (gun_flash.visible):
 			## _process renders before each frame
 			## if the gun flash is visible it means it must have already rendered once
-			#for i in strike_sparks.get_child_count():
-				#strike_sparks.get_child(i).visible = false;
-			#for i in strike_bloods.get_child_count():
-				#strike_bloods.get_child(i).visible = false;
-			#gun_flash.visible = false;
+			for i in strike_sparks.get_child_count():
+				strike_sparks.get_child(i).visible = false;
+			for i in strike_bloods.get_child_count():
+				strike_bloods.get_child(i).visible = false;
+			gun_flash.visible = false;
 		
 		if Input.is_action_just_pressed("reload"):
-			reload(weapon);	
+			reload(weapon);
 		if Input.is_action_just_pressed("swap_left"):
 			weapons.append(weapons.pop_front());
 			print(weapons)
 		elif Input.is_action_just_pressed("swap_right"):
 			weapons.insert(0, weapons.pop_back());
 			print(weapons)
-
 
 	# --- Final Clean Up ---
 	# Can move this to the main gun handling later, just doing this for simplicity.

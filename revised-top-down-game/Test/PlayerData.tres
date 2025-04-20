@@ -1,13 +1,10 @@
-[gd_resource type="Resource" script_class="PlayerData" load_steps=5 format=3 uid="uid://dmy6pp472y7on"]
+[gd_resource type="Resource" script_class="PlayerData" load_steps=2 format=3]
 
 [ext_resource type="Script" path="res://Scripts/Resources/player_data.gd" id="1_h8c63"]
-[ext_resource type="Resource" uid="uid://cqg8nwrs482yg" path="res://Resources/Guns/shotgun.tres" id="2_2h1yo"]
-[ext_resource type="Resource" uid="uid://sc5f03gywkhv" path="res://Resources/Guns/rifle.tres" id="3_t7dw0"]
-[ext_resource type="Resource" uid="uid://16ry4pgf0xd" path="res://Resources/Guns/pistol.tres" id="4_xaye8"]
 
 [resource]
 script = ExtResource("1_h8c63")
-cur_level_path = "res://levels/dev_level.tscn"
+cur_level_path = "res://Levels/PlayGround.tscn"
 cur_health = 100
 battery_level = 0
 bullets = {
@@ -24,4 +21,4 @@ inventory = {
 "consumable": {},
 "scrap": {}
 }
-weapons = [ExtResource("2_2h1yo"), ExtResource("3_t7dw0"), ExtResource("4_xaye8")]
+weapons = []

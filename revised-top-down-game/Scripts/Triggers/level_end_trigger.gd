@@ -1,6 +1,6 @@
 class_name LevelEndTrigger extends Area2D
 
-@export var next_scene := "res://levels/dev_level.tscn";
+@export var next_scene := "res://Levels/dev_level.tscn";
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
