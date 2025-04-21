@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="PlayerData" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://Scripts/Resources/player_data.gd" id="1_bqoux"]
+[ext_resource type="Script" path="res://Scripts/Resources/player_data.gd" id="1_fiup8"]
 
 [resource]
-script = ExtResource("1_bqoux")
+script = ExtResource("1_fiup8")
 cur_level_path = "res://Levels/PlayGround.tscn"
 cur_health = 100
 battery_level = 0
