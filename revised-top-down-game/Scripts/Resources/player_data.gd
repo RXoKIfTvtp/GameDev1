@@ -23,7 +23,8 @@ class_name PlayerData extends Resource
 	},
 	"scrap" : {
 		
-	}
+	},
+	"key" : []
 };
 
 @export var weapons := [];

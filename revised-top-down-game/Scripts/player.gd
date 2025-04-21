@@ -19,9 +19,7 @@ var inv := {
 	"scrap" : {
 		
 	},
-	"keys" : {
-		#Keys? or should I just throw it into 
-	}
+	"key" : []
 }
 
 var weapons := [];
@@ -238,19 +236,28 @@ func melee(raycast : RayCast2D) -> void:
 func interact() -> void:
 	if interactions:
 		var cur_interaction = interactions[0];
+		var interaction_node = cur_interaction.interact_node;
 		
 		# Look at interactable.gd if you nee to see the interaction types
 		match cur_interaction.interact_type:
 			0:# Pick up item
+				if interaction_node != null:
+					# TODO: Might rework this in the future before the submission date, this was a hacky solution
+					inv["key"].append(cur_interaction.interact_node);
+					cur_interaction.hide();
+					cur_interaction.set_collision_layer_value(4, false);
+					return;
+				
 				var res_name = cur_interaction.interact_resource["name"];
 				var res_type = cur_interaction.interact_resource["type"];
 				var res_amount = cur_interaction.interact_resource["amount"];
+				
 				if inv[res_type].has(res_name):
 					inv[res_type][res_name] = (inv[res_type][res_name] + res_amount);
 				else:
 					inv[res_type][res_name] = res_amount;
 				cur_interaction.remove();
-				
+
 			1: # Pickup gun
 				if weapons.size() < 3:
 					weapons.insert(weapons.size(), cur_interaction.interact_resource);
@@ -258,14 +265,16 @@ func interact() -> void:
 				else:
 					#TODO: Change interaction label? Make it replace weapon[0] and drop the other on the ground?
 					print("Too many weapons.")
-				
-				pass
-			2: # Open unlocked door
-				pass
-			3: # Open locked door
-				pass
-			4: # Use key (this applies to keycards aswell)
-				pass
+
+			2: # Open door
+				if interaction_node in inv["key"]:
+					inv["key"].erase(interaction_node);
+					cur_interaction.get_parent().interact();
+				elif interaction_node == null:
+					cur_interaction.get_parent().interact();
+				else:
+					interact_label.text = "The door is locked";
+					
 			"_":
 				print("Something went horribly wrong.")
 

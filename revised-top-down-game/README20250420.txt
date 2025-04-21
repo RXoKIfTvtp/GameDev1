@@ -1,0 +1,7 @@
+Settings now work and are saveable.
+Doors exist now.
+
+When making a locked door you must first place an interactable for the key. Change the exports and make sure to add the 
+key.tres as its' resource. A node2d should be a child of said interactable and dragged into the node section of the 
+interactable. The node2d should then be dragged into the export on the door to make it a locked door. If you need
+clarification, message me and I can show you.

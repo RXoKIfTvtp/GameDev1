@@ -1,4 +1,4 @@
-[gd_scene load_steps=122 format=4 uid="uid://drrfow0da857k"]
+[gd_scene load_steps=125 format=4 uid="uid://drrfow0da857k"]
 
 [ext_resource type="Texture2D" uid="uid://cj2doygm8fmg1" path="res://Assets/Sprites/police_tile-setV3.png" id="3_5ii2u"]
 [ext_resource type="PackedScene" uid="uid://dfvo57vbipddm" path="res://Objects/Triggers/lighting_trigger.tscn" id="3_dmcul"]
@@ -18,6 +18,9 @@
 [ext_resource type="PackedScene" uid="uid://cy8ox1va6jppg" path="res://Objects/Items/Ammo/shotgun_ammo.tscn" id="15_6o3uy"]
 [ext_resource type="PackedScene" uid="uid://ubp70sa21n6r" path="res://Objects/Items/Ammo/rifle_ammo.tscn" id="16_rnh6v"]
 [ext_resource type="PackedScene" uid="uid://byr41sbi1accl" path="res://Objects/placeholder.tscn" id="18_2rspn"]
+[ext_resource type="PackedScene" uid="uid://2c80l0ykmiw2" path="res://Objects/door.tscn" id="18_jathk"]
+[ext_resource type="PackedScene" uid="uid://dcq1vcpqwoqdy" path="res://Objects/interactable.tscn" id="20_6xor3"]
+[ext_resource type="Resource" uid="uid://b6fm3mcxq8u6d" path="res://Resources/Items/key.tres" id="21_3m4ub"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vkqco"]
 texture = ExtResource("3_5ii2u")
@@ -3385,11 +3388,11 @@ tile_set = SubResource("TileSet_j5ch4")
 [node name="Lights" type="Node" parent="."]
 
 [node name="LightingTrigger" parent="Lights" instance=ExtResource("3_dmcul")]
-position = Vector2(319, 203)
+position = Vector2(288, -48)
 
 [node name="AreaLight14" parent="Lights/LightingTrigger" instance=ExtResource("5_2kywy")]
-position = Vector2(-7, -90)
-energy = 97.15
+position = Vector2(23, 110)
+energy = 30.0
 
 [node name="SceneLight" parent="Lights" instance=ExtResource("4_6tumd")]
 position = Vector2(-877, 1120)
@@ -3544,6 +3547,18 @@ position = Vector2(1336, -812)
 [node name="RifleAmmo" parent="Items" instance=ExtResource("16_rnh6v")]
 position = Vector2(1280, -813)
 
+[node name="Door" parent="Items" node_paths=PackedStringArray("key") instance=ExtResource("18_jathk")]
+position = Vector2(1166, -1200)
+key = NodePath("../../Interactable/Node2D")
+
 [node name="Placeholder" parent="." instance=ExtResource("18_2rspn")]
 position = Vector2(1091, -983)
 note = "Tewyfduyghvuidvchbicvb"
+
+[node name="Interactable" parent="." node_paths=PackedStringArray("interact_node") instance=ExtResource("20_6xor3")]
+position = Vector2(1087, -1049)
+interact_label = "Key"
+interact_resource = ExtResource("21_3m4ub")
+interact_node = NodePath("Node2D")
+
+[node name="Node2D" type="Node2D" parent="Interactable"]

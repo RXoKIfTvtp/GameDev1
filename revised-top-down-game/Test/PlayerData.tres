@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="PlayerData" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://Scripts/Resources/player_data.gd" id="1_h8c63"]
+[ext_resource type="Script" path="res://Scripts/Resources/player_data.gd" id="1_bqoux"]
 
 [resource]
-script = ExtResource("1_h8c63")
+script = ExtResource("1_bqoux")
 cur_level_path = "res://Levels/PlayGround.tscn"
 cur_health = 100
 battery_level = 0
@@ -19,6 +19,7 @@ inventory = {
 "rifle": 999
 },
 "consumable": {},
+"key": [],
 "scrap": {}
 }
 weapons = []
