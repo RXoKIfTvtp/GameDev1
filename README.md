@@ -131,5 +131,5 @@ Things left to do that I can remember:
 - Inventory UI
 - Crafting/upgrading
 - Bullet effects (My bad, sorry)
-	
+
 I might be missing some stuff so just add everything we need to another readme.
