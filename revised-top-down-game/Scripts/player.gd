@@ -79,8 +79,6 @@ func _process(_delta: float) -> void:
 	var movement := 0.0;
 	
 	
-	
-	
 	# --- Character Movement ---
 	if Input.is_action_pressed("sprint"):
 		movement = SPEED * 1.5;
@@ -109,13 +107,13 @@ func _process(_delta: float) -> void:
 	# --- Weapon Controls ---
 	if weapons.size() > 0:
 		var weapon = weapons[0];
-		if Input.is_action_just_pressed("shoot"):
-			shoot(weapon);
+		# if Input.is_action_just_pressed("shoot"):
+			# shoot(weapon);
 		if (gun_flash.visible == false):
 			if Input.is_action_just_pressed("shoot"):
-				var result:Array[ShotResult] = weapon.shoot(Input.is_action_pressed("aim"), gun);
+				var result = weapon.shoot(Input.is_action_pressed("aim"), gun);
 				
-				if (result != null && result.size() > 0):
+				if (result != null):
 					audio_stream_player.stream = weapon.fire_sound;
 					audio_stream_player.play(0.15);
 					
@@ -144,7 +142,7 @@ func _process(_delta: float) -> void:
 							blood_index += 1;
 						## Rotate the strike so it looks like it came from the player
 						child.global_position = result[i].location;
-						child.look_at(self.position);
+						child.look_at(self.global_position);
 						## Show the strike
 						child.visible = true;
 					## Show the gun flash
@@ -176,10 +174,12 @@ func _process(_delta: float) -> void:
 	# We can also base it off of the weapon being used.
 	if weapons.size() > 0:
 		player_sprite.texture = load("res://Assets/Sprites/Player/gun_holder.png");
+		player_sprite.position = Vector2(9.5, 0);
 	else:
 		player_sprite.texture = load("res://Assets/Sprites/Player/main_cop.png");
+		player_sprite.position = Vector2(0, 0);
 	
-	# Passes the location of the player to the enemies 
+	# Passes the location of the player to the enemies
 	get_tree().call_group("enemy", "player_position", self.global_position);
 	# Part of the players object is rotated towards the position of the mouse cursor.
 	look.look_at(get_global_mouse_position());

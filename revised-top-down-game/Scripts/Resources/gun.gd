@@ -41,9 +41,6 @@ func shoot(aimed : bool, raycast : RayCast2D):
 	# var ret = null;
 	var shot_results:Array[ShotResult] = [];
 	if cur_ammo > 0:
-		# var sound = AudioStreamPlayer.new();
-		# sound.stream = load("res://asset/audio/pistol-shot-233473.mp3");
-		# sound.play(0.15);
 		for n in range(0,pellets):
 			# Have to create the var before hand or else the compiler throws a hissyfit
 			var rand_aim;
@@ -72,7 +69,8 @@ func shoot(aimed : bool, raycast : RayCast2D):
 			raycast.rotation_degrees -= rand_aim;
 			
 		cur_ammo -= 1;
-	return shot_results;
+		return shot_results;
+	return null;
 
 func _to_string() -> String:
 	return gun_name + ": " + calibur + "," + str(damage) + "," + str(pellets) + "," + str(field_of_fire) + "," + str(field_of_fire_ads) + ","  + str(max_ammo) + ","  + str(cur_ammo)

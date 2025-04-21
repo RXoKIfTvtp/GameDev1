@@ -12,17 +12,18 @@ var _target = null;
 
 func player_position(pos: Vector2) -> void:
 	var direction_to_player = global_position.direction_to(pos);
-	var angle = direction_to_player.angle() - self.rotation;
-	var degrees = rad_to_deg(angle);
-	#print(direction_to_player)
-	#print(angle)
-	#print(degrees)
-	if (abs(degrees) < float(field_of_view) / 2.0):
-		ray_to_player.rotation = angle;
+	var angle = rad_to_deg(direction_to_player.angle()) - self.rotation_degrees;
+	var degrees = abs(angle);
+	if (degrees >= 180):
+		degrees = 360 - degrees;
+	
+	if (degrees < float(field_of_view) / 2.0):
+		ray_to_player.rotation_degrees = angle;
 		ray_to_player.force_raycast_update();
 		var collision_object = ray_to_player.get_collider();
 		if (collision_object != null && collision_object.name.to_lower() == "Player".to_lower()):
 			_target = pos;
+			pass
 	
 	# This does exactly the same thing as above except the ray is created per method call
 	'''

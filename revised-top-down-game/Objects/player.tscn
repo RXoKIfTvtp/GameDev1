@@ -60,6 +60,7 @@ offset = Vector2(110, 0)
 
 [node name="GunFlash" type="Node2D" parent="Look"]
 visible = false
+position = Vector2(29, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Look/GunFlash"]
 position = Vector2(8, 0)
