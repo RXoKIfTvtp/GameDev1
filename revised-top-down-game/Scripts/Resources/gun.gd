@@ -25,7 +25,6 @@ var rng := RandomNumberGenerator.new();
 
 func reload(bullets : int) -> int:
 	var required_bullets := (max_ammo - cur_ammo);
-	print("RELOADING!!!")
 	
 	if bullets <= 0: #If the player has no bullets (or somehow neagitive bullets)
 		return 0;
@@ -62,7 +61,6 @@ func shoot(aimed : bool, raycast : RayCast2D):
 					collision._target = raycast.global_position; # causes npc to walk towards player
 					shot_results.append(ShotResult.new(_hit_location, true));
 				else: # Walls & objects
-					# print("Round didn't hit anything interesting.");
 					shot_results.append(ShotResult.new(_hit_location, false));
 				# ret = raycast.get_collision_point();
 				

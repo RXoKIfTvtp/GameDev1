@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bcwpnnq05bw82"]
+
+[ext_resource type="PackedScene" uid="uid://dcq1vcpqwoqdy" path="res://Objects/Triggers/interactable.tscn" id="1_fh7l6"]
+[ext_resource type="Resource" uid="uid://hss4yu1qqq8g" path="res://Resources/Items/Crafting Materials/duct_tape.tres" id="2_4rve6"]
+
+[node name="DuctTape" type="Node2D"]
+
+[node name="Interactable" parent="." instance=ExtResource("1_fh7l6")]
+interact_label = "Duct Tape"
+interact_resource = ExtResource("2_4rve6")

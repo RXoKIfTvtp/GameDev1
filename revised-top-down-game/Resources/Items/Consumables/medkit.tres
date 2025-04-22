@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://pcvrsvqbcil1"]
+
+[ext_resource type="Texture2D" uid="uid://ch4wp2mrfxs7i" path="res://Assets/Sprites/Items/medikit.png" id="1_dqdn2"]
+[ext_resource type="Script" path="res://Scripts/Resources/item.gd" id="1_gjaav"]
+
+[resource]
+script = ExtResource("1_gjaav")
+name = "medkit"
+type = "consumable"
+icon = ExtResource("1_dqdn2")
+amount = 1

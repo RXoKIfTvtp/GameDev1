@@ -24,16 +24,15 @@ func interact() -> void:
 
 
 func open() -> void:
-	if key != null:
+	if key != null: #this essentially turns a locked door into a regular door
 		key = null;
 		interactable.interact_node = key;
 
 	collision.set_collision_layer_value(1, false);
 	is_closed = false;
 	sprite.rotation_degrees -= 110;
-	interactable.interact_label = "Close door" #TODO: need to update this faster
+	interactable.interact_label = "Close door";
 	
-
 
 func close() -> void:
 	collision.set_collision_layer_value(1, true);

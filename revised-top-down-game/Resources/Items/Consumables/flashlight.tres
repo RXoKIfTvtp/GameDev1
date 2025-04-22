@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://r3cv1hq26mr2"]
+
+[ext_resource type="Texture2D" uid="uid://bf4uceu1pik1a" path="res://Assets/Sprites/Items/flashlight.png" id="1_7rw5h"]
+[ext_resource type="Script" path="res://Scripts/Resources/item.gd" id="2_81g8c"]
+
+[resource]
+script = ExtResource("2_81g8c")
+name = "battery"
+type = "consumable"
+icon = ExtResource("1_7rw5h")
+amount = 1

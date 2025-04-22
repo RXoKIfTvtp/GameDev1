@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://b44obhelm6wdo"]
+
+[ext_resource type="Texture2D" uid="uid://cb02x7xy3s7st" path="res://Assets/Sprites/Items/metalpipe.png" id="1_c4wkq"]
+[ext_resource type="Script" path="res://Scripts/Resources/item.gd" id="2_5g3g0"]
+
+[resource]
+script = ExtResource("2_5g3g0")
+name = "metal_pipe"
+type = "crafting"
+icon = ExtResource("1_c4wkq")
+amount = 1

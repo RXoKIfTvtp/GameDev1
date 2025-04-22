@@ -2,29 +2,27 @@ class_name PlayerData extends Resource
 
 @export var cur_level_path := "res://Levels/PlayGround.tscn";
 
-@export var cur_health := 100;
+@export var cur_health := 100.0;
 
-@export var battery_level := 0;
-
-@export var bullets := {
-	"pistol":999,
-	"rifle":999,
-	"buckshot":999
-};
+@export var cur_battery := 0.0;
 	
 @export var inventory := {
 	"bullet" : {
-		"pistol":999,
-		"rifle":999,
-		"buckshot":999
+		"buckshot":0,
+		"pistol":0,
+		"rifle":0
 	},
 	"consumable": {
-		
+		"battery" : 0,
+		"medkit" : 0
 	},
-	"scrap" : {
-		
+	"crafting" : {
+		"duct_tape" : 0,
+		"metal_pipe" : 0,
+		"scrap" : 0,
+		"screw" : 0
 	},
 	"key" : []
-};
+}
 
 @export var weapons := [];

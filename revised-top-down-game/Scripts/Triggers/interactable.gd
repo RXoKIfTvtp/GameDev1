@@ -3,7 +3,8 @@ class_name Interactable extends Area2D
 enum Interaction_Types {
 	PICKUP_ITEM,
 	PICKUP_WEAPON,
-	OPEN_UNLOCKED_DOOR
+	OPEN_DOOR,
+	USE_WORKBENCH
 }
 
 @export var interact_label := "none";

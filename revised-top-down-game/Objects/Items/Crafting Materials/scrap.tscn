@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cexyy7bcqui5f"]
+
+[ext_resource type="PackedScene" uid="uid://dcq1vcpqwoqdy" path="res://Objects/Triggers/interactable.tscn" id="1_6v1ti"]
+[ext_resource type="Resource" uid="uid://ela0p3q5u7mb" path="res://Resources/Items/Crafting Materials/scrap.tres" id="2_c0hve"]
+
+[node name="Scrap" type="Node2D"]
+
+[node name="Interactable" parent="." instance=ExtResource("1_6v1ti")]
+interact_label = "Scrap"
+interact_resource = ExtResource("2_c0hve")

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxmkmx8ghmjwe"]
+
+[ext_resource type="PackedScene" uid="uid://dcq1vcpqwoqdy" path="res://Objects/Triggers/interactable.tscn" id="1_yap8e"]
+[ext_resource type="Resource" uid="uid://pcvrsvqbcil1" path="res://Resources/Items/Consumables/medkit.tres" id="2_geiy4"]
+
+[node name="Medkit" type="Node2D"]
+
+[node name="Interactable" parent="." instance=ExtResource("1_yap8e")]
+interact_label = "Medkit"
+interact_resource = ExtResource("2_geiy4")

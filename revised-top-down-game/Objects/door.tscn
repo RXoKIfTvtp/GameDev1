@@ -1,28 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://2c80l0ykmiw2"]
+[gd_scene load_steps=5 format=3 uid="uid://2c80l0ykmiw2"]
 
 [ext_resource type="Script" path="res://Scripts/door.gd" id="1_0lc8g"]
-[ext_resource type="PackedScene" uid="uid://dcq1vcpqwoqdy" path="res://Objects/interactable.tscn" id="2_rrjhi"]
+[ext_resource type="PackedScene" uid="uid://dcq1vcpqwoqdy" path="res://Objects/Triggers/interactable.tscn" id="2_rrjhi"]
 [ext_resource type="Texture2D" uid="uid://5g38x0uccna3" path="res://Assets/Sprites/doorClosed.png" id="3_yo2k3"]
-[ext_resource type="Texture2D" uid="uid://gf8ja4tvw86j" path="res://Assets/Sprites/doorOpen.png" id="4_csb6a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2to0g"]
 size = Vector2(112, 20)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_aml5s"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_yo2k3")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_csb6a")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
 [node name="Door" type="Node2D"]
+z_index = 9
 script = ExtResource("1_0lc8g")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
@@ -41,8 +27,3 @@ position = Vector2(-46.5, 0)
 scale = Vector2(2.333, 2.333)
 texture = ExtResource("3_yo2k3")
 offset = Vector2(20, 0)
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-visible = false
-scale = Vector2(2.333, 2.333)
-sprite_frames = SubResource("SpriteFrames_aml5s")

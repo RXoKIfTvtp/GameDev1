@@ -1,6 +1,6 @@
 extends Node
 
-var save_file_path := "res://Test/"; #"user://save/";
+var save_file_path := "user://save/"; #"res://Test/"
 var player_file_name := "PlayerData.tres";
 var settings_file_name := "SettingData.tres";
 
@@ -38,12 +38,9 @@ func save_settings_data(data : SettingData) -> void:
 
 
 func save_player_data(data : PlayerData) -> void:
-	#print("Saving")
 	ResourceSaver.save(data, save_file_path + player_file_name);
-	#print(player_data["cur_level_path"])
-	#print(data["cur_level_path"])
 	player_data = data;
-	#print(player_data["cur_level_path"])
+
 
 
 func reset_player_data() -> void:

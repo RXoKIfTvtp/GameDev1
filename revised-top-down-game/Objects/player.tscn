@@ -1,10 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://d14i2f6iq1veb"]
+[gd_scene load_steps=11 format=3 uid="uid://d14i2f6iq1veb"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_swjbe"]
+[ext_resource type="PackedScene" uid="uid://bo123a2ysfkxk" path="res://UI/upgrade_ui.tscn" id="2_acmm3"]
 [ext_resource type="Texture2D" uid="uid://bcwhacm2wxp3b" path="res://Assets/Sprites/Player/main_cop.png" id="2_cerep"]
+[ext_resource type="PackedScene" uid="uid://82jupoinwuh6" path="res://UI/inventory_UI.tscn" id="3_7221e"]
 [ext_resource type="PackedScene" uid="uid://dfa7fwyvl61la" path="res://Objects/Lighting/spot_light.tscn" id="4_xhace"]
 [ext_resource type="PackedScene" uid="uid://by2dm04dn80ka" path="res://Objects/Lighting/area_light.tscn" id="5_7i4u0"]
 [ext_resource type="Texture2D" uid="uid://vb5ptrr63c82" path="res://Assets/Sprites/Effects/gun_flash.png" id="6_x5nos"]
+[ext_resource type="PackedScene" uid="uid://blbvxtpjfmxvq" path="res://Objects/Lighting/scene_light.tscn" id="7_s3b50"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s0xox"]
 radius = 15.0
@@ -17,6 +20,16 @@ z_index = 9
 collision_layer = 2
 collision_mask = 19
 script = ExtResource("1_swjbe")
+
+[node name="SceneLight" parent="." instance=ExtResource("7_s3b50")]
+
+[node name="InventoryUI" parent="." instance=ExtResource("3_7221e")]
+visible = false
+top_level = true
+
+[node name="UpgradeUI" parent="." instance=ExtResource("2_acmm3")]
+visible = false
+z_index = 1024
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -53,8 +66,10 @@ texture = ExtResource("2_cerep")
 [node name="Lights" type="Node2D" parent="Look"]
 
 [node name="AreaLight" parent="Look/Lights" instance=ExtResource("5_7i4u0")]
+texture_scale = 0.4
 
 [node name="Flashlight" parent="Look/Lights" instance=ExtResource("4_xhace")]
+scale = Vector2(1, 2)
 energy = 0.0
 offset = Vector2(110, 0)
 
@@ -76,7 +91,6 @@ energy = 20.0
 [node name="StrikeSparks" type="Node2D" parent="Look"]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-volume_db = -20.0
 bus = &"SFX"
 
 [node name="InteractionLabel" type="Label" parent="."]
@@ -95,5 +109,8 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
+[node name="Timer" type="Timer" parent="."]
+
 [connection signal="area_entered" from="Look/Interaction/InteractionArea" to="." method="_on_interaction_area_entered"]
 [connection signal="area_exited" from="Look/Interaction/InteractionArea" to="." method="_on_interaction_area_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://d8d036qm0ay2"]
+
+[ext_resource type="Texture2D" uid="uid://nfgdi8t2u6d2" path="res://Assets/Sprites/craftBench.png" id="1_ny2ie"]
+[ext_resource type="PackedScene" uid="uid://dcq1vcpqwoqdy" path="res://Objects/Triggers/interactable.tscn" id="2_lfg6p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nu0db"]
+size = Vector2(76, 38)
+
+[node name="Workbench" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-46.5, 0)
+scale = Vector2(2.333, 2.333)
+texture = ExtResource("1_ny2ie")
+offset = Vector2(20, 0)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_nu0db")
+
+[node name="Interactable" parent="." instance=ExtResource("2_lfg6p")]
+z_index = 15
+scale = Vector2(2, 1)
+priority = 1
+interact_label = "Workbench"
+interact_type = 3

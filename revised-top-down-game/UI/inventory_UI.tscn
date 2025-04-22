@@ -1,0 +1,157 @@
+[gd_scene load_steps=6 format=3 uid="uid://82jupoinwuh6"]
+
+[ext_resource type="Script" path="res://Scripts/UI/inventory_ui.gd" id="1_2i6hq"]
+[ext_resource type="Texture2D" uid="uid://dcu6hmrgpxm67" path="res://Assets/Sprites/Inventory/inventory.png" id="2_5h1fb"]
+[ext_resource type="Texture2D" uid="uid://bpa0pv246p7v5" path="res://Assets/Sprites/Inventory/heart-Sheet.png" id="3_2oea0"]
+[ext_resource type="Texture2D" uid="uid://1q7ueetxu464" path="res://Assets/Sprites/Inventory/batteryLevel-Sheet.png" id="4_1warj"]
+[ext_resource type="PackedScene" uid="uid://cdfcp3jpt0vjs" path="res://UI/inventory_icon.tscn" id="6_lxv7x"]
+
+[node name="InventoryUI" type="Control"]
+z_index = 10
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2i6hq")
+
+[node name="Inventory" type="Sprite2D" parent="."]
+position = Vector2(4, 0)
+texture = ExtResource("2_5h1fb")
+
+[node name="HeartSprite" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(-108, -32)
+texture = ExtResource("3_2oea0")
+hframes = 5
+
+[node name="BatterySprite" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(124, -16)
+texture = ExtResource("4_1warj")
+hframes = 6
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="InventoryIcon" parent="VBoxContainer/HBoxContainer" instance=ExtResource("6_lxv7x")]
+z_index = 1
+position = Vector2(-55, -54)
+resource = null
+
+[node name="InventoryIcon2" parent="VBoxContainer/HBoxContainer" instance=ExtResource("6_lxv7x")]
+z_index = 1
+position = Vector2(-19, -54)
+resource = null
+
+[node name="InventoryIcon3" parent="VBoxContainer/HBoxContainer" instance=ExtResource("6_lxv7x")]
+z_index = 1
+position = Vector2(16, -54)
+resource = null
+
+[node name="InventoryIcon4" parent="VBoxContainer/HBoxContainer" instance=ExtResource("6_lxv7x")]
+z_index = 1
+position = Vector2(52, -54)
+resource = null
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="InventoryIcon" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("6_lxv7x")]
+z_index = 1
+position = Vector2(-55, -22)
+resource = null
+
+[node name="InventoryIcon2" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("6_lxv7x")]
+z_index = 1
+position = Vector2(-19, -22)
+resource = null
+
+[node name="InventoryIcon3" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("6_lxv7x")]
+z_index = 1
+position = Vector2(16, -22)
+resource = null
+
+[node name="InventoryIcon4" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("6_lxv7x")]
+z_index = 1
+position = Vector2(52, -22)
+resource = null
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="InventoryIcon" parent="VBoxContainer/HBoxContainer3" instance=ExtResource("6_lxv7x")]
+z_index = 1
+position = Vector2(-55, 10)
+resource = null
+
+[node name="InventoryIcon2" parent="VBoxContainer/HBoxContainer3" instance=ExtResource("6_lxv7x")]
+z_index = 1
+position = Vector2(-19, 10)
+resource = null
+
+[node name="InventoryIcon3" parent="VBoxContainer/HBoxContainer3" instance=ExtResource("6_lxv7x")]
+z_index = 1
+position = Vector2(16, 10)
+resource = null
+
+[node name="InventoryIcon4" parent="VBoxContainer/HBoxContainer3" instance=ExtResource("6_lxv7x")]
+z_index = 1
+position = Vector2(52, 10)
+resource = null
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="InventoryIcon" parent="VBoxContainer/HBoxContainer4" instance=ExtResource("6_lxv7x")]
+z_index = 1
+position = Vector2(-55, 42)
+resource = null
+
+[node name="InventoryIcon2" parent="VBoxContainer/HBoxContainer4" instance=ExtResource("6_lxv7x")]
+z_index = 1
+position = Vector2(-19, 42)
+resource = null
+
+[node name="InventoryIcon3" parent="VBoxContainer/HBoxContainer4" instance=ExtResource("6_lxv7x")]
+z_index = 1
+position = Vector2(16, 42)
+resource = null
+
+[node name="InventoryIcon4" parent="VBoxContainer/HBoxContainer4" instance=ExtResource("6_lxv7x")]
+z_index = 1
+position = Vector2(52, 42)
+resource = null
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="InventoryIcon" parent="VBoxContainer/HBoxContainer5" instance=ExtResource("6_lxv7x")]
+z_index = 1
+position = Vector2(-55, 74)
+resource = null
+
+[node name="InventoryIcon2" parent="VBoxContainer/HBoxContainer5" instance=ExtResource("6_lxv7x")]
+z_index = 1
+position = Vector2(-19, 74)
+resource = null
+
+[node name="InventoryIcon3" parent="VBoxContainer/HBoxContainer5" instance=ExtResource("6_lxv7x")]
+z_index = 1
+position = Vector2(16, 74)
+resource = null
+
+[node name="InventoryIcon4" parent="VBoxContainer/HBoxContainer5" instance=ExtResource("6_lxv7x")]
+z_index = 1
+position = Vector2(52, 74)
+resource = null

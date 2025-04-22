@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://pm1j1tpxv0x"]
+
+[ext_resource type="PackedScene" uid="uid://dcq1vcpqwoqdy" path="res://Objects/Triggers/interactable.tscn" id="1_kmvqq"]
+[ext_resource type="Resource" uid="uid://b44obhelm6wdo" path="res://Resources/Items/Crafting Materials/metal_pipe.tres" id="2_eoc3u"]
+
+[node name="MetalPipe" type="Node2D"]
+
+[node name="Interactable" parent="." instance=ExtResource("1_kmvqq")]
+interact_label = "Metal Pipe"
+interact_resource = ExtResource("2_eoc3u")

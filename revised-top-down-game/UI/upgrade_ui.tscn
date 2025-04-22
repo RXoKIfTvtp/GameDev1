@@ -1,0 +1,124 @@
+[gd_scene load_steps=3 format=3 uid="uid://bo123a2ysfkxk"]
+
+[ext_resource type="Script" path="res://Scripts/UI/upgrade_ui.gd" id="1_s5pov"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_u5a63"]
+font_color = Color(0, 0, 0, 1)
+
+[node name="UpgradeUI" type="Control"]
+top_level = true
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_s5pov")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -370.0
+offset_top = -220.0
+offset_right = 370.0
+offset_bottom = 220.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.272615, 0.496365, 0.444942, 1)
+
+[node name="WeaponLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -302.0
+offset_top = -160.0
+offset_right = -238.0
+offset_bottom = -137.0
+grow_horizontal = 2
+text = "Weapon"
+
+[node name="OptionButton" type="OptionButton" parent="."]
+layout_mode = 0
+offset_left = -294.0
+offset_top = -132.0
+offset_right = -262.0
+offset_bottom = -112.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -152.0
+offset_top = -38.0
+offset_right = 151.0
+offset_bottom = 63.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="MaxAmmoButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Upgrade Max Ammo"
+
+[node name="ResourcesLabel1" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "4 Scrap, 3 Screws"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="DamageButton" type="Button" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Upgrade Damage"
+
+[node name="ResourcesLabel2" type="Label" parent="VBoxContainer/HBoxContainer2"]
+z_index = 1024
+layout_mode = 2
+text = "2 Pipe, 2 Screws"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="FieldOfFireButton" type="Button" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Upgrade Accuracy"
+
+[node name="ResourcesLabel3" type="Label" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "3 Pipe, 2 Duct Tape"
+
+[node name="Back" type="Button" parent="."]
+layout_mode = 0
+offset_left = -306.0
+offset_top = 132.0
+offset_right = -261.0
+offset_bottom = 163.0
+text = "Back"
+
+[node name="MessageLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = -199.0
+offset_top = -111.0
+offset_right = 223.0
+offset_bottom = -88.0
+label_settings = SubResource("LabelSettings_u5a63")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="item_selected" from="OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/MaxAmmoButton" to="." method="_on_max_ammo_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer2/DamageButton" to="." method="_on_damage_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer3/FieldOfFireButton" to="." method="_on_field_of_fire_button_pressed"]
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]

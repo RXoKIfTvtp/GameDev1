@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c1kl7bwr4vjys"]
 
-[ext_resource type="PackedScene" uid="uid://dcq1vcpqwoqdy" path="res://Objects/interactable.tscn" id="1_w6yvg"]
+[ext_resource type="PackedScene" uid="uid://dcq1vcpqwoqdy" path="res://Objects/Triggers/interactable.tscn" id="1_w6yvg"]
 [ext_resource type="Resource" uid="uid://di4sub5mv5md0" path="res://Resources/Items/Bullets/bullet_pistol.tres" id="2_1sn64"]
 
 [node name="PistolAmmo" type="Node2D"]

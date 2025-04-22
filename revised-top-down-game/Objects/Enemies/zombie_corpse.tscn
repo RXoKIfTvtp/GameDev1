@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://0bwa7yws2cao" path="res://Assets/Sprites/corpse.png" id="2_us8ny"]
 
 [node name="ZombieCorpse" type="Node2D"]
-z_index = 1
 script = ExtResource("1_24y3x")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

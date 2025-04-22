@@ -1,23 +1,28 @@
 class_name Player extends CharacterBody2D
 
 const SPEED := 300;
-const MAX_HEALTH := 100;
+const MAX_HEALTH := 100.0;
+const MAX_BATTERY := 60000.0;
 var cur_health := MAX_HEALTH;
-
-var flashlight_battery_amount := 60000;
-
-var bullets := { }
+var cur_battery := 0.0;
+var is_controllable : bool = true;
 
 # Filled just for visulization
 var inv := {
 	"bullet" : {
-
+		"buckshot":0,
+		"pistol":0,
+		"rifle":0
 	},
 	"consumable": {
-		
+		"battery" : 0,
+		"medkit" : 0
 	},
-	"scrap" : {
-		
+	"crafting" : {
+		"duct_tape" : 0,
+		"metal_pipe" : 0,
+		"scrap" : 0,
+		"screw" : 0
 	},
 	"key" : []
 }
@@ -26,9 +31,6 @@ var weapons := [];
 
 var interactions := [];
 
-
-
-
 # --- Onready variables ---
 @onready var player_sprite := $Look/Sprite2D;
 
@@ -36,41 +38,47 @@ var interactions := [];
 @onready var flashlight := $Look/Lights/Flashlight;
 @onready var knife := $Look/Raycasts/Melee;
 @onready var gun := $Look/Raycasts/Gun;
-
 @onready var interact_label := $InteractionLabel;
+@onready var timer := $Timer;
 
-@onready var audio_stream_player = $AudioStreamPlayer;
+@onready var audio_stream_player := $AudioStreamPlayer;
 
-@onready var gun_flash = $Look/GunFlash;
-@onready var strike_sparks = $Look/StrikeSparks
-@onready var strike_bloods = $Look/StrikeBloods
+@onready var upgrade_ui := $UpgradeUI;
+@onready var inventory_ui := $InventoryUI;
+@onready var lighting := $SceneLight;
+
+@onready var gun_flash := $Look/GunFlash;
+@onready var strike_sparks := $Look/StrikeSparks
+@onready var strike_bloods := $Look/StrikeBloods
 
 var _h_strike_spark = preload("res://Objects/Gun Effects/strike_spark.tscn");
 var _h_strike_blood = preload("res://Objects/Gun Effects/strike_blood.tscn");
 
 func _ready() -> void:
-	print("Player ready")
+	
 	self.add_to_group("player");
 	load_player();
 
-
-
 func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("dev"):
+		take_damage(21);
+	
+	if !is_controllable:
+		return;
+	
 	if (flashlight.energy != 0):
 		# If flashlight is on and has battery left
-		if (flashlight_battery_amount > 0):
-			flashlight_battery_amount -= int(_delta * 1000);
+		if (cur_battery > 0.0):
+			cur_battery -= int(_delta * 1000);
 		# If flashlight is on but ran out of battery, turn off the flashlight
 		else:
 			flashlight.energy = 0;
-			flashlight_battery_amount = 0;
+			cur_battery = 0.0;
 			
-	elif inv["consumable"].has("battery") && flashlight_battery_amount < 1:
-		flashlight_battery_amount = 60000;
+	elif inv["consumable"]["battery"] > 0 && cur_battery < 1:
+		cur_battery = MAX_BATTERY;
 		inv["consumable"]["battery"] = inv["consumable"]["battery"] - 1;
-		remove_item("consumable","battery");
 		# TODO: Play a battery charge/changing sound
-			
 
 	# --- Directional Input ---
 	var direction := Input.get_vector("left","right","up","down");
@@ -91,17 +99,24 @@ func _process(_delta: float) -> void:
 		
 	if Input.is_action_just_pressed("interact"):
 		interact();
-	if Input.is_action_just_pressed("flashlight") && flashlight_battery_amount > 0:
+	if Input.is_action_just_pressed("flashlight") && cur_battery > 0:
 		# Play a clicking noise
 		if flashlight.energy > 0:
 			flashlight.energy = 0;
 			return;
 		flashlight.energy = 1;
+	
 	if Input.is_action_just_pressed("melee"):
 		melee(knife);
 	if Input.is_action_just_pressed("inventory"):
-		pass
-		
+		if inventory_ui.visible == true:
+			inventory_ui.visible = false;
+		else:
+			inventory_ui.visible = true;
+	
+	if Input.is_action_just_pressed("heal"):
+		heal();
+	
 	# --- Weapon Controls ---
 	if weapons.size() > 0:
 		var weapon = weapons[0];
@@ -167,14 +182,24 @@ func _process(_delta: float) -> void:
 			weapons.insert(0, weapons.pop_back());
 			print(weapons)
 
-	# --- Final Clean Up ---
+	# --- Sprite Cleanup ---
 	# Can move this to the main gun handling later, just doing this for simplicity.
-	# We can also base it off of the weapon being used.
 	if weapons.size() > 0:
-		player_sprite.texture = load("res://Assets/Sprites/Player/gun_holder.png");
-		player_sprite.position = Vector2(9.5, 0);
+		if weapons[0].calibur == "pistol":
+			player_sprite.texture = load("res://Assets/Sprites/Player/pistolHolder.png");
+			player_sprite.position = Vector2(9.5, 0);
+			gun_flash.position =  Vector2(30, 0);
+		if weapons[0].calibur == "rifle":
+			player_sprite.texture = load("res://Assets/Sprites/Player/rifleHolder.png");
+			player_sprite.position = Vector2(9.5, 0);
+			gun_flash.position =  Vector2(30, 5);
+		if weapons[0].calibur == "buckshot":
+			player_sprite.texture = load("res://Assets/Sprites/Player/shotgunHolder.png");
+			player_sprite.position = Vector2(9.5, 0);
+			gun_flash.position =  Vector2(30, 7);
+			
 	else:
-		player_sprite.texture = load("res://Assets/Sprites/Player/main_cop.png");
+		player_sprite.texture = load("res://Assets/Sprites/Player/playerV2.png");
 		player_sprite.position = Vector2(0, 0);
 	
 	# Passes the location of the player to the enemies
@@ -182,40 +207,6 @@ func _process(_delta: float) -> void:
 	# Part of the players object is rotated towards the position of the mouse cursor.
 	look.look_at(get_global_mouse_position());
 	move_and_slide();
-	
-	if Input.is_action_just_pressed("dev"):
-		#print(SaveLoad.player_data["cur_level_path"])
-		#SaveLoad.save_player_data(save_player())
-		take_damage(100);
-		pass
-
-
-
-
-# --- Inventory Controls ---
-#func add_to_inv(item : Item, amount : int) -> void:
-	#inv[inv.size()-1] = {
-		#
-	#}
-#func remove_from_inv() -> void:
-	#pass
-#
-
-
-# --- Player Weapon Functions ---
-func shoot(weapon : Gun) -> void:
-	if weapon.cur_ammo > 0:
-		if Input.is_action_just_pressed("aim"):
-			weapon.shoot(true,gun);
-		else:
-			weapon.shoot(false,gun);
-			
-		audio_stream_player.stream = weapon.fire_sound;
-		audio_stream_player.play(0.15);
-	else:
-		#Play dry fire sound
-		audio_stream_player.stream = weapon.dry_fire_sound;
-		audio_stream_player.play();
 
 func reload(weapon : Gun) -> void:
 	if weapon.cur_ammo != weapon.max_ammo:# Messy, but I don't give a damn
@@ -232,6 +223,48 @@ func melee(raycast : RayCast2D) -> void:
 		raycast.force_raycast_update();
 	raycast.rotation_degrees -= 60;
 
+# --- Inventory ---
+func inventory_to_array() -> Array:
+	var arr = [];
+	var temp_arr;
+	
+	# --- Weapons to array ---
+	for x in range(0,weapons.size()):
+		arr.append(weapons[x]);
+	for x in range(0,3 - weapons.size()):
+		arr += [null];
+	
+	temp_arr = inv["bullet"].values();
+	
+	arr.append(load("res://Resources/Items/Bullets/bullet_buckshot.tres").duplicate(true));
+	arr[3].amount = temp_arr[0];
+	arr.append(load("res://Resources/Items/Bullets/bullet_pistol.tres").duplicate(true));
+	arr[4].amount = temp_arr[1];
+	arr.append(load("res://Resources/Items/Bullets/bullet_rifle.tres").duplicate(true));
+	arr[5].amount = temp_arr[2];
+
+	temp_arr = inv["consumable"].values();
+	arr.append(load("res://Resources/Items/Consumables/battery.tres").duplicate(true));
+	arr[6].amount = temp_arr[0];
+	arr.append(load("res://Resources/Items/Consumables/medkit.tres").duplicate(true));
+	arr[7].amount = temp_arr[1];
+	
+	temp_arr = inv["crafting"].values();
+	arr.append(load("res://Resources/Items/Crafting Materials/duct_tape.tres").duplicate(true));
+	arr[8].amount = temp_arr[0];
+	arr.append(load("res://Resources/Items/Crafting Materials/metal_pipe.tres").duplicate(true));
+	arr[9].amount = temp_arr[1];
+	arr.append(load("res://Resources/Items/Crafting Materials/scrap.tres").duplicate(true));
+	arr[10].amount = temp_arr[2];
+	arr.append(load("res://Resources/Items/Crafting Materials/screw.tres").duplicate(true));
+	arr[11].amount = temp_arr[3];
+	
+	
+	for x in range(0,inv["key"].size()):
+		arr.append(load("res://Resources/Items/key.tres").duplicate(true));
+	return arr;
+
+
 # --- Interaction Functions ---
 func interact() -> void:
 	if interactions:
@@ -241,6 +274,7 @@ func interact() -> void:
 		# Look at interactable.gd if you nee to see the interaction types
 		match cur_interaction.interact_type:
 			0:# Pick up item
+				# This is just for keys, essentially it adds a node to your inventory
 				if interaction_node != null:
 					# TODO: Might rework this in the future before the submission date, this was a hacky solution
 					inv["key"].append(cur_interaction.interact_node);
@@ -260,11 +294,11 @@ func interact() -> void:
 
 			1: # Pickup gun
 				if weapons.size() < 3:
-					weapons.insert(weapons.size(), cur_interaction.interact_resource);
+					weapons.insert(weapons.size(), cur_interaction.interact_resource.duplicate(true));
 					cur_interaction.remove();
 				else:
-					#TODO: Change interaction label? Make it replace weapon[0] and drop the other on the ground?
-					print("Too many weapons.")
+					interact_label.text = "I can't hold anymore weapons."
+					timer.start();
 
 			2: # Open door
 				if interaction_node in inv["key"]:
@@ -274,7 +308,16 @@ func interact() -> void:
 					cur_interaction.get_parent().interact();
 				else:
 					interact_label.text = "The door is locked";
-					
+			3: # TODO: If I have time find a way to shut off ALL lights so it isn't bleeding into the overlay. (get_parent().find_children
+				upgrade_ui.selected_upgrade.clear();
+				is_controllable = false;
+				lighting.visible = false;
+				upgrade_ui.visible = true;
+				upgrade_ui.global_position = self.global_position;
+				upgrade_ui.weapon_array = weapons;
+				upgrade_ui.resources = inv["crafting"];
+				upgrade_ui.update_ui();
+				
 			"_":
 				print("Something went horribly wrong.")
 
@@ -301,22 +344,19 @@ func take_damage(damage : int) -> void:
 		die();
 
 func die() -> void:
-	SceneLoader.switch_scene("res://UI/death_overlay.tscn");
-	
+	SceneLoader.switch_scene("res://UI/death_screen.tscn");
 
-# TODO: Deal with this when the inventory overlay exists
-func remove_item(type : String, item : String) -> void:
-	if inv[type][item] <= 0:
-		inv[type].erase(item);
+func heal() -> void:
+	if inv["consumable"].has("medkit") && inv["consumable"]["medkit"] > 0 && cur_health != MAX_HEALTH:
+		cur_health = MAX_HEALTH;
+		inv["consumable"]["medkit"] -= 1;
 
 # --- Save and Load Data ---
 func load_player() -> void:
 	SaveLoad.load_player_data();
 	var saved_data = SaveLoad.player_data;
-	print(saved_data)
 	cur_health = saved_data["cur_health"];
-	flashlight_battery_amount  = saved_data["battery_level"];
-	bullets = saved_data["bullets"];
+	cur_battery  = saved_data["cur_battery"];
 	inv = saved_data["inventory"];
 	weapons = saved_data["weapons"];
 
@@ -325,9 +365,11 @@ func save_player(level_path : String) -> PlayerData:
 	
 	new_player["cur_level_path"] = level_path;
 	new_player["cur_health"] = cur_health;
-	new_player["battery_level"] = flashlight_battery_amount;
-	new_player["bullets"] = bullets;
+	new_player["cur_battery"] = cur_battery;
 	new_player["inventory"] = inv;
 	new_player["weapons"] = weapons;
 	
 	return new_player;
+
+func _on_timer_timeout() -> void:
+	interact_label.text = "";

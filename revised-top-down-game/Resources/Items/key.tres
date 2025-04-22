@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://b6fm3mcxq8u6d"]
 
-[ext_resource type="Texture2D" uid="uid://ctwo2vdae1p6t" path="res://Assets/Sprites/keyV2.png" id="1_08vsh"]
+[ext_resource type="Texture2D" uid="uid://ctwo2vdae1p6t" path="res://Assets/Sprites/Items/keyV2.png" id="1_08vsh"]
 [ext_resource type="Script" path="res://Scripts/Resources/item.gd" id="2_axhl2"]
 
 [resource]
@@ -8,4 +8,4 @@ script = ExtResource("2_axhl2")
 name = "Key"
 type = "key"
 icon = ExtResource("1_08vsh")
-amount = 0
+amount = 1

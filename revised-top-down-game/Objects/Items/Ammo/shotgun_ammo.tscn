@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cy8ox1va6jppg"]
 
-[ext_resource type="PackedScene" uid="uid://dcq1vcpqwoqdy" path="res://Objects/interactable.tscn" id="1_yjp53"]
+[ext_resource type="PackedScene" uid="uid://dcq1vcpqwoqdy" path="res://Objects/Triggers/interactable.tscn" id="1_yjp53"]
 [ext_resource type="Resource" uid="uid://co8bu8i6jobe7" path="res://Resources/Items/Bullets/bullet_buckshot.tres" id="2_nx6q7"]
 
 [node name="ShotgunAmmo" type="Node2D"]

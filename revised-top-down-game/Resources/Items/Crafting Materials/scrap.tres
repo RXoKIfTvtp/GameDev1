@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://ela0p3q5u7mb"]
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://ela0p3q5u7mb"]
 
+[ext_resource type="Texture2D" uid="uid://7mop3a4ocv7a" path="res://Assets/Sprites/Items/scrap.png" id="1_eu0dy"]
 [ext_resource type="Script" path="res://Scripts/Resources/item.gd" id="1_kfwg2"]
 
 [resource]
 script = ExtResource("1_kfwg2")
-name = "Scrap"
-type = "Crafting"
-amount = 0
+name = "scrap"
+type = "crafting"
+icon = ExtResource("1_eu0dy")
+amount = 1

@@ -1,0 +1,76 @@
+[gd_scene load_steps=4 format=3 uid="uid://tbnexd3563a5"]
+
+[ext_resource type="Script" path="res://Scripts/UI/death_overlay.gd" id="1_pkr8x"]
+[ext_resource type="PackedScene" uid="uid://by2dm04dn80ka" path="res://Objects/Lighting/area_light.tscn" id="2_4bfic"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ol0ed"]
+font_size = 80
+font_color = Color(1, 0, 0, 1)
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
+
+[node name="DeathScreen" type="Control"]
+top_level = true
+light_mask = 0
+visibility_layer = 512
+z_as_relative = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pkr8x")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -180.0
+offset_right = 320.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 0, 0.392157)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -172.5
+offset_top = -110.0
+offset_right = 172.5
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="YouDiedLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "You Died"
+label_settings = SubResource("LabelSettings_ol0ed")
+
+[node name="RestartButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Restart"
+
+[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[node name="AreaLight" parent="." instance=ExtResource("2_4bfic")]
+texture_scale = 2.0
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

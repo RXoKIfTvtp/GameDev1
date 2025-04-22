@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://pcvrsvqbcil1"]
-
-[ext_resource type="Script" path="res://Scripts/Resources/item.gd" id="1_gjaav"]
-
-[resource]
-script = ExtResource("1_gjaav")
-name = "bandage"
-type = "consumable"
-amount = 1

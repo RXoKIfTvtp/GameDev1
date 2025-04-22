@@ -10,3 +10,6 @@ class_name Item extends Resource
 @export var icon : Texture2D;
 @export var amount : int;
 #@export var path : String;
+
+func _to_string() -> String:
+	return name + ": " + str(amount)

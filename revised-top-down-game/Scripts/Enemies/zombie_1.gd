@@ -7,8 +7,15 @@ const SPEED = 100;
 # The position the npc should move to or null for idle
 var _target = null;
 
+@onready var sprite := $Sprite2D;
 @onready var ray_to_player:RayCast2D = $RayToPlayer;
 @onready var audio_stream := $AudioStreamPlayer;
+
+var body1 := preload("res://Assets/Sprites/Enemies/zomV1.png");
+var body2 := preload("res://Assets/Sprites/Enemies/zomV2.png");
+var body3 := preload("res://Assets/Sprites/Enemies/zomV3.png");
+var body4 := preload("res://Assets/Sprites/Enemies/zomV4.png");
+
 
 func player_position(pos: Vector2) -> void:
 	var direction_to_player = global_position.direction_to(pos);
@@ -52,10 +59,22 @@ func player_position(pos: Vector2) -> void:
 	'''
 	pass
 
+
 func _ready() -> void:
 	# Add npc to enemy group to recieve player_position updates
 	self.add_to_group("enemy");
 	self.health = 100;
+	
+	match test:
+		0:
+			sprite.texture = body1;
+		1:
+			sprite.texture = body2;
+		2:
+			sprite.texture = body3;
+		3:
+			sprite.texture = body4;
+	
 
 func _process(_delta: float) -> void:
 	if (_target != null):
@@ -72,7 +91,4 @@ func _physics_process(delta: float) -> void:
 		self.velocity = self.position.direction_to(_target).normalized() * delta * SPEED * 60;
 	else:
 		self.velocity = Vector2(0, 0)
-	
-	#print(self.velocity)
-
 	move_and_slide()
