@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dcu6hmrgpxm67" path="res://Assets/Sprites/Inventory/inventory.png" id="2_5h1fb"]
 [ext_resource type="Texture2D" uid="uid://bpa0pv246p7v5" path="res://Assets/Sprites/Inventory/heart-Sheet.png" id="3_2oea0"]
 [ext_resource type="Texture2D" uid="uid://1q7ueetxu464" path="res://Assets/Sprites/Inventory/batteryLevel-Sheet.png" id="4_1warj"]
-[ext_resource type="PackedScene" uid="uid://cdfcp3jpt0vjs" path="res://UI/inventory_icon.tscn" id="6_lxv7x"]
+[ext_resource type="PackedScene" uid="uid://cdfcp3jpt0vjs" path="res://UI/Overlays/inventory_icon.tscn" id="6_lxv7x"]
 
 [node name="InventoryUI" type="CanvasLayer"]
 offset = Vector2(320, 180)

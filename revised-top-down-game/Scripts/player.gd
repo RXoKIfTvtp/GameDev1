@@ -49,8 +49,10 @@ var in_range := [];
 # Used for player recieving damage sound effect
 @onready var audio_stream_player2 := $AudioStreamPlayer2;
 
+# --- Canvas Layers ---
 @onready var upgrade_ui := $UpgradeUI;
 @onready var inventory_ui := $InventoryUI;
+@onready var pause_menu := $PauseMenu;
 
 @onready var gun_flash := $Look/GunFlash;
 @onready var strike_sparks := $Look/StrikeSparks
@@ -72,14 +74,15 @@ var knife_miss := load("res://Assets/Audio/knife-slice-41231.mp3");
 var idle_sprite := load("res://Assets/Sprites/Player/playerV2.png");
 
 func _ready() -> void:
-	
+	print("test")
 	self.add_to_group("player");
 	load_player();
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("escape"):
-		#SceneLoader.switch_scene()
-		get_tree().quit();
+		pause();
+		
+		
 	if Input.is_action_just_pressed("dev"):
 		take_damage(21);
 	
@@ -377,7 +380,7 @@ func take_damage(damage : float) -> void:
 
 
 func die() -> void:
-	SceneLoader.switch_scene("res://UI/death_screen.tscn");
+	SceneLoader.switch_scene("res://UI/Menus/death_screen.tscn");
 
 func heal() -> void:
 	if inv["consumable"].has("medkit") && inv["consumable"]["medkit"] > 0 && cur_health != MAX_HEALTH:
@@ -425,3 +428,13 @@ func _on_damage_area_exited(area: Area2D) -> void:
 	print("Exited")
 	if (area.get_parent() is Enemy):
 		damaging -= 1;
+
+func pause():
+	if is_controllable:
+		Engine.time_scale = 0;
+		is_controllable = false;
+		pause_menu.visible = true;
+		return;
+	Engine.time_scale = 1;
+	is_controllable = true;
+	pause_menu.visible = false;

@@ -7,4 +7,4 @@ func _on_restart_button_pressed() -> void:
 
 
 func _on_quit_button_pressed() -> void:
-	SceneLoader.switch_scene("res://UI/main_menu.tscn");
+	SceneLoader.switch_scene("res://UI/Menus/main_menu.tscn");

@@ -28,7 +28,11 @@ func _on_no_button_pressed() -> void:
 	overlay.hide();
 
 func _on_settings_button_pressed() -> void:
-	SceneLoader.switch_scene("res://UI/settings_menu.tscn");
+	SceneLoader.switch_scene("res://UI/Menus/settings_menu.tscn");
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit();
+
+
+func _on_credits_button_pressed() -> void:
+	SceneLoader.switch_scene("res://UI/Menus/credits.tscn");
