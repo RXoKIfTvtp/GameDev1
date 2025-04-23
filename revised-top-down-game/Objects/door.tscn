@@ -8,7 +8,7 @@
 size = Vector2(112, 20)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_gu6an"]
-polygon = PackedVector2Array(-55, -5, -55, 5, 55, 5, 55, -5)
+polygon = PackedVector2Array(-8.5, -5, -8.5, 5, 101.5, 5, 101.5, -5)
 
 [node name="Door" type="Node2D"]
 z_index = 9
@@ -32,5 +32,6 @@ texture = ExtResource("3_yo2k3")
 offset = Vector2(20, 0)
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+position = Vector2(-46.5, 0)
 occluder = SubResource("OccluderPolygon2D_gu6an")
 occluder_light_mask = 16

@@ -4,6 +4,7 @@ class_name Door extends Node
 @onready var interactable := $Interactable
 @onready var collision := $StaticBody2D
 @onready var sprite := $Sprite2D
+@onready var occlusion := $LightOccluder2D
 
 @export var key : Node2D = null;
 var is_closed := true;
@@ -31,6 +32,7 @@ func open() -> void:
 	collision.set_collision_layer_value(1, false);
 	is_closed = false;
 	sprite.rotation_degrees -= 110;
+	occlusion.rotation_degrees -= 110;
 	interactable.interact_label = "Close door";
 	
 
@@ -38,4 +40,5 @@ func close() -> void:
 	collision.set_collision_layer_value(1, true);
 	is_closed = true;
 	sprite.rotation_degrees += 110;
+	occlusion.rotation_degrees += 110;
 	interactable.interact_label = "Open door"
