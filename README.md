@@ -133,3 +133,32 @@ Things left to do that I can remember:
 - Bullet effects (My bad, sorry)
 
 I might be missing some stuff so just add everything we need to another readme.
+
+Apr 20, 2025
+
+Settings now work and are saveable.
+Doors exist now.
+
+When making a locked door you must first place an interactable for the key. Change the exports and make sure to add the 
+key.tres as its' resource. A node2d should be a child of said interactable and dragged into the node section of the 
+interactable. The node2d should then be dragged into the export on the door to make it a locked door. If you need
+clarification, message me and I can show you.
+
+Apr 22, 2025
+
+Update 1:
+There is a new input, Q for healing.
+
+Inventory and crafting benches exist now. The invetory allows you to see pyour inventory, the light overlaps with them a 
+lot but I couldn't be #$@$ed at this point to try and deal with the light clipping. The bench allows you to upgrade weapons.
+
+Save files no longer go to the "Test" folder. Now they're stored in the user folder.
+
+Zombies spawn in with several different sprites now for variety.
+
+I might have fixed a few bugs? I can't remember, my perception of time is blending together.
+
+
+Update 2:
+
+Changed UI into CanvasLayers. Added melee with knife sound effects for hitting and missing.
