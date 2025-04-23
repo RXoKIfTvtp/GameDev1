@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://2c80l0ykmiw2"]
+[gd_scene load_steps=6 format=3 uid="uid://2c80l0ykmiw2"]
 
 [ext_resource type="Script" path="res://Scripts/door.gd" id="1_0lc8g"]
 [ext_resource type="PackedScene" uid="uid://dcq1vcpqwoqdy" path="res://Objects/Triggers/interactable.tscn" id="2_rrjhi"]
@@ -6,6 +6,9 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2to0g"]
 size = Vector2(112, 20)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_gu6an"]
+polygon = PackedVector2Array(-55, -5, -55, 5, 55, 5, 55, -5)
 
 [node name="Door" type="Node2D"]
 z_index = 9
@@ -27,3 +30,7 @@ position = Vector2(-46.5, 0)
 scale = Vector2(2.333, 2.333)
 texture = ExtResource("3_yo2k3")
 offset = Vector2(20, 0)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_gu6an")
+occluder_light_mask = 16
