@@ -7,6 +7,8 @@ var cur_health := MAX_HEALTH;
 var cur_battery := 0.0;
 var is_controllable : bool = true;
 
+var damaging := 0;
+
 # Filled just for visulization
 var inv := {
 	"bullet" : {
@@ -38,8 +40,8 @@ var in_range := [];
 
 @onready var look := $Look;
 @onready var flashlight := $Look/Lights/Flashlight;
-@onready var knife := $Look/Knife;
-@onready var gun := $Look/Gun;
+@onready var knife := $Look/Raycasts/Melee;
+@onready var gun := $Look/Raycasts/Gun;
 @onready var interact_label := $InteractionLabel;
 @onready var timer := $Timer;
 
@@ -66,11 +68,19 @@ func _ready() -> void:
 	load_player();
 
 func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("escape"):
+		#SceneLoader.switch_scene()
+		get_tree().quit();
+	
 	if Input.is_action_just_pressed("dev"):
 		take_damage(21);
 	
+	
 	if !is_controllable:
 		return;
+	
+	if (damaging > 0):
+		take_damage(_delta * damaging * 5.0);
 	
 	if (flashlight.energy != 0):
 		# If flashlight is on and has battery left
@@ -217,8 +227,8 @@ func _process(_delta: float) -> void:
 	move_and_slide();
 
 func reload(weapon : Gun) -> void:
-	if weapon.cur_ammo != weapon.max_ammo:# Messy, but I don't give a damn
-		var bullet_type = weapon.calibur;
+	var bullet_type = weapon.calibur;
+	if weapon.cur_ammo != weapon.max_ammo:
 		inv["bullet"][bullet_type] = inv["bullet"][bullet_type] - weapon.reload(inv["bullet"][bullet_type]); #Could make a variable for inv[][] but it would only be applicable for the last two since you still need to set the value
 		audio_stream_player.stream = weapon.reload_sound;
 		audio_stream_player.play();
@@ -347,7 +357,7 @@ func update_interactions() -> void:
 		interact_label.text = "";
 
 # --- Handling Player Damage ---
-func take_damage(damage : int) -> void:
+func take_damage(damage : float) -> void:
 	cur_health -= damage;
 	if cur_health <= 0:
 		cur_health = 0;
@@ -397,3 +407,13 @@ func _on_knife_body_entered(body: Node2D) -> void:
 func _on_knife_body_exited(body: Node2D) -> void:
 	if body is Enemy:
 		in_range.erase(body);
+
+func _on_damage_area_entered(area: Area2D) -> void:
+	if (area.get_parent() is Enemy):
+		damaging += 1;
+	pass # Replace with function body.
+
+func _on_damage_area_exited(area: Area2D) -> void:
+	if (area.get_parent() is Enemy):
+		damaging -= 1;
+	pass # Replace with function body.

@@ -23,7 +23,7 @@ func _ready() -> void:
 	max_health = parent.MAX_HEALTH;
 	max_battery = parent.MAX_BATTERY;
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if visible == false:
 		return;
 	# Make the inventory follow the player while rendering over most things (light is still a big issue).
