@@ -6,11 +6,10 @@ const MAX_BATTERY := 60000.0;
 var cur_health := MAX_HEALTH;
 var cur_battery := 0.0;
 var is_controllable : bool = true;
-
-var damaging := 0;
+var damaging := 0; # How many NPCs are damaging the player
 
 # Filled just for visulization
-var inv := {
+var inv := {	
 	"bullet" : {
 		"buckshot":0,
 		"pistol":0,
@@ -40,8 +39,8 @@ var in_range := [];
 
 @onready var look := $Look;
 @onready var flashlight := $Look/Lights/Flashlight;
-@onready var knife := $Look/Raycasts/Melee;
-@onready var gun := $Look/Raycasts/Gun;
+@onready var knife := $Look/Knife;
+@onready var gun := $Look/Gun;
 @onready var interact_label := $InteractionLabel;
 @onready var timer := $Timer;
 
@@ -62,6 +61,16 @@ var _h_strike_blood = preload("res://Objects/Gun Effects/strike_blood.tscn");
 
 var _damage_stx = preload("res://Assets/Audio/male_grunts-100281-trimmed.mp3");
 
+
+var pistol_sprite := load("res://Assets/Sprites/Player/pistolHolder.png")
+var rifle_sprite := load("res://Assets/Sprites/Player/rifleHolder.png");
+var shotgun_sprite := load("res://Assets/Sprites/Player/shotgunHolder.png");
+
+var knife_hit := load("res://Assets/Audio/knife-stab-pull.mp3");
+var knife_miss := load("res://Assets/Audio/knife-slice-41231.mp3");
+
+var idle_sprite := load("res://Assets/Sprites/Player/playerV2.png");
+
 func _ready() -> void:
 	
 	self.add_to_group("player");
@@ -71,7 +80,6 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("escape"):
 		#SceneLoader.switch_scene()
 		get_tree().quit();
-	
 	if Input.is_action_just_pressed("dev"):
 		take_damage(21);
 	
@@ -80,7 +88,8 @@ func _process(_delta: float) -> void:
 		return;
 	
 	if (damaging > 0):
-		take_damage(_delta * damaging * 5.0);
+		take_damage(_delta * damaging * 5);
+		print(cur_health)
 	
 	if (flashlight.energy != 0):
 		# If flashlight is on and has battery left
@@ -204,20 +213,20 @@ func _process(_delta: float) -> void:
 	# Can move this to the main gun handling later, just doing this for simplicity.
 	if weapons.size() > 0:
 		if weapons[0].calibur == "pistol":
-			player_sprite.texture = load("res://Assets/Sprites/Player/pistolHolder.png");
+			player_sprite.texture = pistol_sprite;
 			player_sprite.position = Vector2(9.5, 0);
 			gun_flash.position =  Vector2(30, 0);
 		if weapons[0].calibur == "rifle":
-			player_sprite.texture = load("res://Assets/Sprites/Player/rifleHolder.png");
+			player_sprite.texture = rifle_sprite;
 			player_sprite.position = Vector2(9.5, 0);
 			gun_flash.position =  Vector2(30, 5);
 		if weapons[0].calibur == "buckshot":
-			player_sprite.texture = load("res://Assets/Sprites/Player/shotgunHolder.png");
+			player_sprite.texture = shotgun_sprite;
 			player_sprite.position = Vector2(9.5, 0);
 			gun_flash.position =  Vector2(30, 7);
 			
 	else:
-		player_sprite.texture = load("res://Assets/Sprites/Player/playerV2.png");
+		player_sprite.texture = idle_sprite;
 		player_sprite.position = Vector2(0, 0);
 	
 	# Passes the location of the player to the enemies
@@ -228,7 +237,7 @@ func _process(_delta: float) -> void:
 
 func reload(weapon : Gun) -> void:
 	var bullet_type = weapon.calibur;
-	if weapon.cur_ammo != weapon.max_ammo:
+	if weapon.cur_ammo != weapon.max_ammo and inv["bullet"][bullet_type] != 0:
 		inv["bullet"][bullet_type] = inv["bullet"][bullet_type] - weapon.reload(inv["bullet"][bullet_type]); #Could make a variable for inv[][] but it would only be applicable for the last two since you still need to set the value
 		audio_stream_player.stream = weapon.reload_sound;
 		audio_stream_player.play();
@@ -238,10 +247,10 @@ func melee() -> void:
 	#https://pixabay.com/sound-effects/search/knife/ -> kinfe-stab-pull : Karim-Nessim
 	for enemy in in_range:
 		enemy.take_damage(10);
-		audio_stream_player.stream = load("res://Assets/Audio/knife-stab-pull.mp3");
+		audio_stream_player.stream = knife_hit;
 		audio_stream_player.play();
 		return;
-	audio_stream_player.stream = load("res://Assets/Audio/knife-slice-41231.mp3");
+	audio_stream_player.stream = knife_miss;
 	audio_stream_player.play();
 
 # --- Inventory ---
@@ -411,9 +420,7 @@ func _on_knife_body_exited(body: Node2D) -> void:
 func _on_damage_area_entered(area: Area2D) -> void:
 	if (area.get_parent() is Enemy):
 		damaging += 1;
-	pass # Replace with function body.
 
 func _on_damage_area_exited(area: Area2D) -> void:
 	if (area.get_parent() is Enemy):
 		damaging -= 1;
-	pass # Replace with function body.
