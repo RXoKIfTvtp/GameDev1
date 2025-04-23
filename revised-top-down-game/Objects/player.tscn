@@ -2,15 +2,15 @@
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_swjbe"]
 [ext_resource type="PackedScene" uid="uid://bo123a2ysfkxk" path="res://UI/upgrade_ui.tscn" id="2_acmm3"]
-[ext_resource type="Texture2D" uid="uid://bcwhacm2wxp3b" path="res://Assets/Sprites/Player/main_cop.png" id="2_cerep"]
 [ext_resource type="PackedScene" uid="uid://82jupoinwuh6" path="res://UI/inventory_UI.tscn" id="3_7221e"]
+[ext_resource type="Texture2D" uid="uid://bdlsqi7bka2k3" path="res://Assets/Sprites/Player/playerV2.png" id="4_sygh1"]
 [ext_resource type="PackedScene" uid="uid://dfa7fwyvl61la" path="res://Objects/Lighting/spot_light.tscn" id="4_xhace"]
 [ext_resource type="PackedScene" uid="uid://by2dm04dn80ka" path="res://Objects/Lighting/area_light.tscn" id="5_7i4u0"]
 [ext_resource type="Texture2D" uid="uid://vb5ptrr63c82" path="res://Assets/Sprites/Effects/gun_flash.png" id="6_x5nos"]
 [ext_resource type="AudioStream" uid="uid://i316pq5cel1y" path="res://Assets/Audio/scary-music-box-for-spooky-scenes-165983-trimmed.mp3" id="9_4orie"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s0xox"]
-radius = 15.0
+radius = 12.0416
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c04m4"]
 radius = 15.0
@@ -60,7 +60,7 @@ position = Vector2(20, 0)
 shape = SubResource("CircleShape2D_c04m4")
 
 [node name="Sprite2D" type="Sprite2D" parent="Look"]
-texture = ExtResource("2_cerep")
+texture = ExtResource("4_sygh1")
 
 [node name="Lights" type="Node2D" parent="Look"]
 
@@ -120,10 +120,9 @@ autowrap_mode = 2
 [node name="Timer" type="Timer" parent="."]
 
 [node name="DamageArea" type="Area2D" parent="."]
-scale = Vector2(1.5, 1.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
-scale = Vector2(1.1, 1.1)
+scale = Vector2(1.32, 1.32)
 shape = SubResource("CircleShape2D_nwt78")
 
 [connection signal="body_entered" from="Look/Knife" to="." method="_on_knife_body_entered"]

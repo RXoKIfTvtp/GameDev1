@@ -89,7 +89,6 @@ func _process(_delta: float) -> void:
 	
 	if (damaging > 0):
 		take_damage(_delta * damaging * 5);
-		print(cur_health)
 	
 	if (flashlight.energy != 0):
 		# If flashlight is on and has battery left
@@ -418,9 +417,11 @@ func _on_knife_body_exited(body: Node2D) -> void:
 		in_range.erase(body);
 
 func _on_damage_area_entered(area: Area2D) -> void:
+	print("Entered")
 	if (area.get_parent() is Enemy):
 		damaging += 1;
 
 func _on_damage_area_exited(area: Area2D) -> void:
+	print("Exited")
 	if (area.get_parent() is Enemy):
 		damaging -= 1;
