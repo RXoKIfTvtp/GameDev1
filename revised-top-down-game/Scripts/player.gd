@@ -6,6 +6,7 @@ const MAX_BATTERY := 60000.0;
 var cur_health := MAX_HEALTH;
 var cur_battery := 0.0;
 var is_controllable : bool = true;
+var damaging := 0; # How many NPCs are damaging the player
 
 # Filled just for visulization
 var inv := {
@@ -65,6 +66,9 @@ func _process(_delta: float) -> void:
 	
 	if !is_controllable:
 		return;
+	
+	if (damaging > 0):
+		take_damage(_delta * damaging * 5);
 	
 	if (flashlight.energy != 0):
 		# If flashlight is on and has battery left
@@ -338,9 +342,10 @@ func update_interactions() -> void:
 		interact_label.text = "";
 
 # --- Handling Player Damage ---
-func take_damage(damage : int) -> void:
+func take_damage(damage : float) -> void:
 	cur_health -= damage;
-	if cur_health < 1:
+	if cur_health <= 0:
+		cur_health = 0;
 		die();
 
 func die() -> void:
@@ -373,3 +378,14 @@ func save_player(level_path : String) -> PlayerData:
 
 func _on_timer_timeout() -> void:
 	interact_label.text = "";
+
+
+func _on_damage_area_entered(area: Area2D) -> void:
+	if (area.get_parent() is Enemy):
+		damaging += 1;
+	pass # Replace with function body.
+
+func _on_damage_area_exited(area: Area2D) -> void:
+	if (area.get_parent() is Enemy):
+		damaging -= 1;
+	pass # Replace with function body.

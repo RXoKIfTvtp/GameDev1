@@ -14,6 +14,13 @@ script = ExtResource("1_xiyd7")
 position = Vector2(6, 0)
 texture = ExtResource("1_2m5hp")
 
+[node name="DamagingArea" type="Area2D" parent="."]
+position = Vector2(18, 0)
+scale = Vector2(4, 4)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamagingArea"]
+shape = SubResource("CircleShape2D_2ebd5")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(6, 0)
 scale = Vector2(2, 2)

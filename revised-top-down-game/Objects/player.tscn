@@ -111,6 +111,14 @@ autowrap_mode = 2
 
 [node name="Timer" type="Timer" parent="."]
 
+[node name="DamageArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+scale = Vector2(1.1, 1.1)
+shape = SubResource("CircleShape2D_s0xox")
+
 [connection signal="area_entered" from="Look/Interaction/InteractionArea" to="." method="_on_interaction_area_entered"]
 [connection signal="area_exited" from="Look/Interaction/InteractionArea" to="." method="_on_interaction_area_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="DamageArea" to="." method="_on_damage_area_entered"]
+[connection signal="area_exited" from="DamageArea" to="." method="_on_damage_area_exited"]
