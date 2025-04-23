@@ -1,4 +1,4 @@
-extends Control
+extends CanvasLayer
 
 var weapon_array := [];
 
@@ -62,7 +62,6 @@ func _on_back_pressed() -> void:
 	
 	self.visible = false;
 	parent.is_controllable = true;
-	parent.lighting.visible = true;
 	parent.weapons = weapon_array;
 	parent.inv["crafting"] = resources;
 	selected_weapon = 0;

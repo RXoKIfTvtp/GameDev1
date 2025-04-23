@@ -5,20 +5,10 @@
 [sub_resource type="LabelSettings" id="LabelSettings_u5a63"]
 font_color = Color(0, 0, 0, 1)
 
-[node name="UpgradeUI" type="Control"]
-top_level = true
-layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
+[node name="UpgradeUI" type="CanvasLayer"]
 script = ExtResource("1_s5pov")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -33,26 +23,23 @@ grow_vertical = 2
 color = Color(0.272615, 0.496365, 0.444942, 1)
 
 [node name="WeaponLabel" type="Label" parent="."]
-layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -302.0
-offset_top = -160.0
-offset_right = -238.0
-offset_bottom = -137.0
+offset_left = -303.0
+offset_top = 14.0
+offset_right = -239.0
+offset_bottom = 37.0
 grow_horizontal = 2
 text = "Weapon"
 
 [node name="OptionButton" type="OptionButton" parent="."]
-layout_mode = 0
-offset_left = -294.0
-offset_top = -132.0
-offset_right = -262.0
-offset_bottom = -112.0
+offset_left = 19.0
+offset_top = 50.0
+offset_right = 51.0
+offset_bottom = 70.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -100,19 +87,17 @@ layout_mode = 2
 text = "3 Pipe, 2 Duct Tape"
 
 [node name="Back" type="Button" parent="."]
-layout_mode = 0
-offset_left = -306.0
-offset_top = 132.0
-offset_right = -261.0
-offset_bottom = 163.0
+offset_left = 18.0
+offset_top = 309.0
+offset_right = 63.0
+offset_bottom = 340.0
 text = "Back"
 
 [node name="MessageLabel" type="Label" parent="."]
-layout_mode = 0
-offset_left = -199.0
-offset_top = -111.0
-offset_right = 223.0
-offset_bottom = -88.0
+offset_left = 126.0
+offset_top = 87.0
+offset_right = 548.0
+offset_bottom = 110.0
 label_settings = SubResource("LabelSettings_u5a63")
 horizontal_alignment = 1
 vertical_alignment = 1

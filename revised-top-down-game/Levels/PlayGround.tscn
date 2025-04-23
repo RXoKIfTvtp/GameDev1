@@ -1,4 +1,4 @@
-[gd_scene load_steps=131 format=4 uid="uid://drrfow0da857k"]
+[gd_scene load_steps=132 format=4 uid="uid://drrfow0da857k"]
 
 [ext_resource type="Texture2D" uid="uid://cj2doygm8fmg1" path="res://Assets/Sprites/police_tile-setV3.png" id="3_5ii2u"]
 [ext_resource type="PackedScene" uid="uid://dfvo57vbipddm" path="res://Objects/Triggers/lighting_trigger.tscn" id="3_dmcul"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://c1kl7bwr4vjys" path="res://Objects/Items/Ammo/pistol_ammo.tscn" id="8_go0yr"]
 [ext_resource type="PackedScene" uid="uid://dbefo28lfkl0" path="res://Objects/Enemies/zombie_1.tscn" id="8_rvx36"]
 [ext_resource type="PackedScene" uid="uid://bxk2buehe8e74" path="res://Objects/Triggers/level_end_trigger.tscn" id="8_v7vk4"]
+[ext_resource type="PackedScene" uid="uid://blbvxtpjfmxvq" path="res://Objects/Lighting/scene_light.tscn" id="11_xd5f7"]
 [ext_resource type="PackedScene" uid="uid://dfeycdb4hgf81" path="res://Objects/Items/Consumables/battery.tscn" id="14_bqit7"]
 [ext_resource type="PackedScene" uid="uid://cy8ox1va6jppg" path="res://Objects/Items/Ammo/shotgun_ammo.tscn" id="15_6o3uy"]
 [ext_resource type="PackedScene" uid="uid://ubp70sa21n6r" path="res://Objects/Items/Ammo/rifle_ammo.tscn" id="16_rnh6v"]
@@ -3534,6 +3535,8 @@ scale = Vector2(2, 1)
 [node name="AreaLightFlickerOff2" parent="Lights" instance=ExtResource("6_fve2c")]
 position = Vector2(-422, -1541)
 script = null
+
+[node name="SceneLight" parent="Lights" instance=ExtResource("11_xd5f7")]
 
 [node name="Player" parent="." instance=ExtResource("3_rgdcx")]
 position = Vector2(1060, -914)

@@ -6,16 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://1q7ueetxu464" path="res://Assets/Sprites/Inventory/batteryLevel-Sheet.png" id="4_1warj"]
 [ext_resource type="PackedScene" uid="uid://cdfcp3jpt0vjs" path="res://UI/inventory_icon.tscn" id="6_lxv7x"]
 
-[node name="InventoryUI" type="Control"]
-z_index = 10
-layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
+[node name="InventoryUI" type="CanvasLayer"]
+offset = Vector2(320, 180)
+transform = Transform2D(1, 0, 0, 1, 320, 180)
 script = ExtResource("1_2i6hq")
 
 [node name="Inventory" type="Sprite2D" parent="."]
@@ -37,7 +30,6 @@ hframes = 6
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 

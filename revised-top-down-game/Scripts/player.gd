@@ -6,7 +6,6 @@ const MAX_BATTERY := 60000.0;
 var cur_health := MAX_HEALTH;
 var cur_battery := 0.0;
 var is_controllable : bool = true;
-var damaging := 0; # How many NPCs are damaging the player
 
 # Filled just for visulization
 var inv := {
@@ -32,13 +31,15 @@ var weapons := [];
 
 var interactions := [];
 
+var in_range := [];
+
 # --- Onready variables ---
 @onready var player_sprite := $Look/Sprite2D;
 
 @onready var look := $Look;
 @onready var flashlight := $Look/Lights/Flashlight;
-@onready var knife := $Look/Raycasts/Melee;
-@onready var gun := $Look/Raycasts/Gun;
+@onready var knife := $Look/Knife;
+@onready var gun := $Look/Gun;
 @onready var interact_label := $InteractionLabel;
 @onready var timer := $Timer;
 
@@ -49,7 +50,6 @@ var interactions := [];
 
 @onready var upgrade_ui := $UpgradeUI;
 @onready var inventory_ui := $InventoryUI;
-@onready var lighting := $SceneLight;
 
 @onready var gun_flash := $Look/GunFlash;
 @onready var strike_sparks := $Look/StrikeSparks
@@ -58,7 +58,7 @@ var interactions := [];
 var _h_strike_spark = preload("res://Objects/Gun Effects/strike_spark.tscn");
 var _h_strike_blood = preload("res://Objects/Gun Effects/strike_blood.tscn");
 
-var _damage_sfx = preload("res://Assets/Audio/male_grunts-100281-trimmed.mp3");
+var _damage_stx = preload("res://Assets/Audio/male_grunts-100281-trimmed.mp3");
 
 func _ready() -> void:
 	
@@ -71,9 +71,6 @@ func _process(_delta: float) -> void:
 	
 	if !is_controllable:
 		return;
-	
-	if (damaging > 0):
-		take_damage(_delta * damaging * 5);
 	
 	if (flashlight.energy != 0):
 		# If flashlight is on and has battery left
@@ -108,15 +105,17 @@ func _process(_delta: float) -> void:
 		
 	if Input.is_action_just_pressed("interact"):
 		interact();
+		
 	if Input.is_action_just_pressed("flashlight") && cur_battery > 0:
 		# Play a clicking noise
 		if flashlight.energy > 0:
 			flashlight.energy = 0;
 			return;
 		flashlight.energy = 1;
-	
+
 	if Input.is_action_just_pressed("melee"):
-		melee(knife);
+		melee();
+
 	if Input.is_action_just_pressed("inventory"):
 		if inventory_ui.visible == true:
 			inventory_ui.visible = false;
@@ -224,13 +223,16 @@ func reload(weapon : Gun) -> void:
 		audio_stream_player.stream = weapon.reload_sound;
 		audio_stream_player.play();
 
-func melee(raycast : RayCast2D) -> void:
-	for n in range(0,6):
-		if raycast.is_colliding(): #Will add an array later so it can hit multiple, or return if you want one collision
-			return;# TODO: Remove this after testing
-		raycast.rotation_degrees += 10;
-		raycast.force_raycast_update();
-	raycast.rotation_degrees -= 60;
+func melee() -> void:
+	#https://pixabay.com/sound-effects/search/knife/ -> Knife slice : freesound_community
+	#https://pixabay.com/sound-effects/search/knife/ -> kinfe-stab-pull : Karim-Nessim
+	for enemy in in_range:
+		enemy.take_damage(10);
+		audio_stream_player.stream = load("res://Assets/Audio/knife-stab-pull.mp3");
+		audio_stream_player.play();
+		return;
+	audio_stream_player.stream = load("res://Assets/Audio/knife-slice-41231.mp3");
+	audio_stream_player.play();
 
 # --- Inventory ---
 func inventory_to_array() -> Array:
@@ -320,9 +322,7 @@ func interact() -> void:
 			3: # TODO: If I have time find a way to shut off ALL lights so it isn't bleeding into the overlay. (get_parent().find_children
 				upgrade_ui.selected_upgrade.clear();
 				is_controllable = false;
-				lighting.visible = false;
 				upgrade_ui.visible = true;
-				upgrade_ui.global_position = self.global_position;
 				upgrade_ui.weapon_array = weapons;
 				upgrade_ui.resources = inv["crafting"];
 				upgrade_ui.update_ui();
@@ -347,16 +347,16 @@ func update_interactions() -> void:
 		interact_label.text = "";
 
 # --- Handling Player Damage ---
-func take_damage(damage : float) -> void:
+func take_damage(damage : int) -> void:
 	cur_health -= damage;
 	if cur_health <= 0:
 		cur_health = 0;
 		die();
 	else:
 		if !audio_stream_player2.is_playing():
-			audio_stream_player2.stream = _damage_sfx;
+			audio_stream_player2.stream = _damage_stx;
 			audio_stream_player2.play();
-	pass
+
 
 func die() -> void:
 	SceneLoader.switch_scene("res://UI/death_screen.tscn");
@@ -390,12 +390,10 @@ func _on_timer_timeout() -> void:
 	interact_label.text = "";
 
 
-func _on_damage_area_entered(area: Area2D) -> void:
-	if (area.get_parent() is Enemy):
-		damaging += 1;
-	pass # Replace with function body.
+func _on_knife_body_entered(body: Node2D) -> void:
+	if body is Enemy:
+		in_range.insert(0, body);
 
-func _on_damage_area_exited(area: Area2D) -> void:
-	if (area.get_parent() is Enemy):
-		damaging -= 1;
-	pass # Replace with function body.
+func _on_knife_body_exited(body: Node2D) -> void:
+	if body is Enemy:
+		in_range.erase(body);

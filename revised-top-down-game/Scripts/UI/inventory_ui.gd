@@ -1,4 +1,4 @@
-extends Control
+extends CanvasLayer
 
 var max_health = 0.0;
 var max_battery = 0.0;
@@ -27,7 +27,7 @@ func _process(delta: float) -> void:
 	if visible == false:
 		return;
 	# Make the inventory follow the player while rendering over most things (light is still a big issue).
-	global_position = parent.global_position;
+	#global_position = parent.global_position;
 
 	# Getting player data
 	cur_health = parent.cur_health;
