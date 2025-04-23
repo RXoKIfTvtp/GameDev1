@@ -117,6 +117,8 @@ autowrap_mode = 2
 scale = Vector2(1.1, 1.1)
 shape = SubResource("CircleShape2D_s0xox")
 
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+
 [connection signal="area_entered" from="Look/Interaction/InteractionArea" to="." method="_on_interaction_area_entered"]
 [connection signal="area_exited" from="Look/Interaction/InteractionArea" to="." method="_on_interaction_area_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -42,7 +42,10 @@ var interactions := [];
 @onready var interact_label := $InteractionLabel;
 @onready var timer := $Timer;
 
+# Used for gun shot sound effects
 @onready var audio_stream_player := $AudioStreamPlayer;
+# Used for player recieving damage sound effect
+@onready var audio_stream_player2 := $AudioStreamPlayer2;
 
 @onready var upgrade_ui := $UpgradeUI;
 @onready var inventory_ui := $InventoryUI;
@@ -54,6 +57,8 @@ var interactions := [];
 
 var _h_strike_spark = preload("res://Objects/Gun Effects/strike_spark.tscn");
 var _h_strike_blood = preload("res://Objects/Gun Effects/strike_blood.tscn");
+
+var _damage_stx = preload("res://Assets/Audio/male_grunts-100281-trimmed.mp3");
 
 func _ready() -> void:
 	
@@ -347,6 +352,11 @@ func take_damage(damage : float) -> void:
 	if cur_health <= 0:
 		cur_health = 0;
 		die();
+	else:
+		if !audio_stream_player2.is_playing():
+			audio_stream_player2.stream = _damage_stx;
+			audio_stream_player2.play();
+	pass
 
 func die() -> void:
 	SceneLoader.switch_scene("res://UI/death_screen.tscn");
