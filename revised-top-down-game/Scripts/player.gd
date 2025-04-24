@@ -53,25 +53,27 @@ var in_range := [];
 @onready var upgrade_ui := $UpgradeUI;
 @onready var inventory_ui := $InventoryUI;
 @onready var pause_menu := $PauseMenu;
+@onready var death_screen := $DeathScreen;
 
 @onready var gun_flash := $Look/GunFlash;
 @onready var strike_sparks := $Look/StrikeSparks
 @onready var strike_bloods := $Look/StrikeBloods
 
+# --- Gun Effects ---
 var _h_strike_spark = preload("res://Objects/Gun Effects/strike_spark.tscn");
 var _h_strike_blood = preload("res://Objects/Gun Effects/strike_blood.tscn");
 
-var _damage_stx = preload("res://Assets/Audio/male_grunts-100281-trimmed.mp3");
-
-
+# --- Sprite & Audio ---
 var pistol_sprite := load("res://Assets/Sprites/Player/pistolHolder.png")
 var rifle_sprite := load("res://Assets/Sprites/Player/rifleHolder.png");
 var shotgun_sprite := load("res://Assets/Sprites/Player/shotgunHolder.png");
+var idle_sprite := load("res://Assets/Sprites/Player/playerV2.png");
+var corpse_sprite := load("res://Assets/Sprites/Enemies/corpseV1.png"); # Using a zombie corpse for the time being
 
 var knife_hit := load("res://Assets/Audio/knife-stab-pull.mp3");
 var knife_miss := load("res://Assets/Audio/knife-slice-41231.mp3");
+var _damage_stx = preload("res://Assets/Audio/male_grunts-100281-trimmed.mp3");
 
-var idle_sprite := load("res://Assets/Sprites/Player/playerV2.png");
 
 func _ready() -> void:
 	print("test")
@@ -87,11 +89,11 @@ func _process(_delta: float) -> void:
 		take_damage(21);
 	
 	
-	if !is_controllable:
-		return;
-	
 	if (damaging > 0):
 		take_damage(_delta * damaging * 5);
+	
+	if !is_controllable:
+		return;
 	
 	if (flashlight.energy != 0):
 		# If flashlight is on and has battery left
@@ -380,7 +382,17 @@ func take_damage(damage : float) -> void:
 
 
 func die() -> void:
-	SceneLoader.switch_scene("res://UI/Menus/death_screen.tscn");
+	player_sprite.texture = corpse_sprite;
+	
+	# Set all other UI to false just in case
+	pause_menu.visible = false;
+	inventory_ui.visible = false;
+	upgrade_ui.visible = false;
+	
+	# Makes the player unable to move and the UI gets unhidden
+	is_controllable = false;
+	death_screen.visible = true;
+
 
 func heal() -> void:
 	if inv["consumable"].has("medkit") && inv["consumable"]["medkit"] > 0 && cur_health != MAX_HEALTH:

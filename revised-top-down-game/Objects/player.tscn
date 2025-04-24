@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://d14i2f6iq1veb"]
+[gd_scene load_steps=14 format=3 uid="uid://d14i2f6iq1veb"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_swjbe"]
 [ext_resource type="PackedScene" uid="uid://bo123a2ysfkxk" path="res://UI/Overlays/upgrade_ui.tscn" id="2_acmm3"]
+[ext_resource type="PackedScene" uid="uid://tbnexd3563a5" path="res://UI/Menus/death_screen.tscn" id="2_dyig5"]
 [ext_resource type="PackedScene" uid="uid://cy6cjre8p8jvk" path="res://UI/Overlays/pause_menu.tscn" id="2_xodiv"]
 [ext_resource type="PackedScene" uid="uid://82jupoinwuh6" path="res://UI/Overlays/inventory_UI.tscn" id="3_7221e"]
 [ext_resource type="Texture2D" uid="uid://bdlsqi7bka2k3" path="res://Assets/Sprites/Player/playerV2.png" id="4_sygh1"]
@@ -23,6 +24,9 @@ z_index = 9
 collision_layer = 2
 collision_mask = 19
 script = ExtResource("1_swjbe")
+
+[node name="DeathScreen" parent="." instance=ExtResource("2_dyig5")]
+visible = false
 
 [node name="PauseMenu" parent="." instance=ExtResource("2_xodiv")]
 visible = false

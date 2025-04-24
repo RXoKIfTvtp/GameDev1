@@ -1,4 +1,4 @@
-extends Control
+extends CanvasLayer
 
 # TODO: Find a way to render it above the light layer. Making it it's own parent in the root node helped somewhat.
 
